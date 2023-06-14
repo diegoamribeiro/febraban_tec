@@ -47,6 +47,16 @@ object Utils {
             .into(this)
     }
 
+    fun putTelCelMask(text: String): String{
+        val number = onlyNumbers(text.trim())
+        val mask = if (number.length > 10) {
+            "(##) #####-####"
+        } else {
+            "(##) ####-####"
+        }
+        return process(mask, number)
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun hasInternetConnection(@ApplicationContext appContext: Context): Boolean {
@@ -115,5 +125,26 @@ object Utils {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+    }
+
+    fun onlyNumbers(numberWithMask: String): String {
+        return Regex("[^0-9]").replace(numberWithMask, "")
+    }
+
+    private fun process(mask: String, text: String): String{
+        val number = onlyNumbers(text.trim()).toCharArray()
+        var textMask = ""
+        var numberIndex = 0
+        for (maskItem in mask) {
+            if (maskItem != '#') {
+                textMask += maskItem
+            } else if(numberIndex < number.size) {
+                textMask += number[numberIndex]
+                numberIndex++
+            } else {
+                break
+            }
+        }
+        return textMask
     }
 }

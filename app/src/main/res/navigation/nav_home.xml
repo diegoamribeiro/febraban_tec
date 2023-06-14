@@ -18,5 +18,27 @@
         android:id="@+id/nav_security"
         android:name="com.cap.techsurvey.ui.SecurityFragment"
         tools:layout="@layout/fragment_security"
-        android:label="SecurityFragment" />
+        android:label="SecurityFragment" >
+        <action
+            android:id="@+id/action_nav_security_to_nav_full_name"
+            app:destination="@id/nav_full_name" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_full_name"
+        android:name="com.cap.techsurvey.ui.FullNameFragment"
+        android:label="fragment_full_name"
+        tools:layout="@layout/fragment_full_name" >
+        <action
+            android:id="@+id/action_nav_full_name_to_nav_company"
+            app:destination="@id/nav_company" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_company"
+        android:name="com.cap.techsurvey.ui.CompanyFragment"
+        android:label="fragment_company"
+        tools:layout="@layout/fragment_company" />
+
+
 </navigation>

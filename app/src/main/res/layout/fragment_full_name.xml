@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_default"
+    tools:context=".ui.FullNameFragment">
+
+    <ImageView
+        android:id="@+id/iv_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@color/mask_black"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/cap_logo"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="50dp"/>
+
+    <TextView
+        style="@style/TextStyleUbuntuLightCenteredWhite"
+        android:id="@+id/tv_lets_go"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_ask"
+        android:text="@string/label_lets_go"
+        android:textSize="64sp"
+        android:textAlignment="center"
+        android:layout_marginTop="165dp"
+        />
+
+    <TextView
+        style="@style/TextStyleUbuntuLightCenteredWhite"
+        android:id="@+id/tv_ask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_lets_go"
+        android:text="@string/label_ask_user_name"
+        android:textSize="38sp"
+        android:layout_marginTop="120dp"
+        app:layout_constraintBottom_toTopOf="@id/il_name"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/il_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="@string/hint_user_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_ask"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_name"
+            style="@style/CustomEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

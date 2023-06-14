@@ -16,5 +16,15 @@
     <string name="label_accept_proceed">Eu aceito prossegir</string>
     <string name="label_refuse_proceed">Eu não aceito prosseguir</string>
     <string name="label_meet">Primeiro é importante nos conhecermos! \n\nMas antes disso, valorizamos sua confiança em nosso aplicativo e estamos empenhados em fornecer uma experiência segura e em conformidade com a LGPD durante o teste.</string>
+    <string name="label_lets_go">Vamos lá!</string>
+    <string name="label_company_name">Digite o nome fantasia</string>
+    <string name="hint_user_name">Escreva aqui e pressione</string>
+    <string name="label_ask_user_name">Então, qual o seu nome completo?</string>
+    <string name="label_ask_company_name">E o nome da sua empresa?</string>
+    <string name="label_role">Digite o cargo</string>
+    <string name="label_ask_role">Qual é o seu cargo na empresa?</string>
+    <string name="label_area">Digite a área</string>
+    <string name="label_ask_area">E a área?</string>
+
 
 </resources>
