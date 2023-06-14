@@ -6,6 +6,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.view.animation.AlphaAnimation
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import com.cap.techsurvey.MainActivity
 import com.cap.techsurvey.R
@@ -29,7 +31,7 @@ class SplashActivity : AppCompatActivity() {
         Utils.hideStatusBar(window)
         navigateToActivity()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        animateImage()
     }
 
     private fun navigateToActivity() {
@@ -38,5 +40,13 @@ class SplashActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }, 4000)
+    }
+
+    private fun animateImage(){
+
+        val alphaAnimation = AlphaAnimation(0f, 1f)
+        alphaAnimation.duration = 3000 // Tempo do efeito em milissegundos.
+
+        binding.ivLogo.startAnimation(alphaAnimation)
     }
 }

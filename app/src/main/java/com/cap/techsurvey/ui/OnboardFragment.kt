@@ -10,6 +10,7 @@ import com.cap.techsurvey.databinding.FragmentOnboardingBinding
 import com.cap.techsurvey.entities.Option
 import com.cap.techsurvey.entities.Question
 import com.cap.techsurvey.entities.Survey
+import com.cap.techsurvey.utils.Utils.generateQRCode
 import com.cap.techsurvey.utils.viewBinding
 import java.io.File
 import java.text.SimpleDateFormat
