@@ -2,16 +2,19 @@ package com.cap.techsurvey
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
-import dagger.hilt.android.AndroidEntryPoint
-import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import dagger.hilt.android.AndroidEntryPoint
 import com.cap.techsurvey.databinding.ActivityMainBinding
+import com.cap.techsurvey.utils.Utils
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -22,16 +25,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Para versões anteriores ao Android R
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            @Suppress("DEPRECATION")
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Utils.hideStatusBar(window)
+
         addPermissions()
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
 
         val homeContainerView = supportFragmentManager
             .findFragmentById(R.id.container_home) as NavHostFragment
         navController = homeContainerView.navController
-        setupActionBarWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -48,6 +60,4 @@ class MainActivity : AppCompatActivity() {
             // A permissão foi concedida, você pode continuar
         }
     }
-
-
 }

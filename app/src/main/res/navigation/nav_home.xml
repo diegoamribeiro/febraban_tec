@@ -9,5 +9,14 @@
         android:id="@+id/nav_onboard"
         android:name="com.cap.techsurvey.ui.OnboardFragment"
         android:label="fragment_onboarding"
-        tools:layout="@layout/fragment_onboarding" />
+        tools:layout="@layout/fragment_onboarding" >
+        <action
+            android:id="@+id/action_nav_onboard_to_nav_security"
+            app:destination="@id/nav_security" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_security"
+        android:name="com.cap.techsurvey.ui.SecurityFragment"
+        tools:layout="@layout/fragment_security"
+        android:label="SecurityFragment" />
 </navigation>

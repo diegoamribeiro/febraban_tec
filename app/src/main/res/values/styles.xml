@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- outras cores e estilos ... -->
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- outras customizações do tema ... -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="CustomOutlinedButtonStyle" parent="Widget.Material3.Button.OutlinedButton" tools:ignore="ResourceCycle">
+        <item name="backgroundTint">@color/transparent</item>
+        <item name="android:textColor">@color/cian_blue</item>
+        <item name="strokeColor">@color/cian_blue</item>
+        <item name="android:paddingHorizontal" tools:ignore="NewApi">10dp</item>
+    </style>
+
+    <style name="CustomFilledButtonStyle" parent="Widget.Material3.Button.OutlinedButton" tools:ignore="ResourceCycle">
+        <item name="backgroundTint">@color/soft_blue</item>
+        <item name="strokeColor">@color/cian_blue</item>
+        <item name="android:textColor">@color/component_text</item>
+        <item name="android:paddingHorizontal" tools:ignore="NewApi">10dp</item>
+    </style>
+
+    <style name="CustomTransparentButtonStyle" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="backgroundTint">@color/transparent</item>
+        <item name="strokeColor">@color/transparent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">27sp</item>
+        <item name="android:padding">20dp</item>
+    </style>
+
+
+
+</resources>
