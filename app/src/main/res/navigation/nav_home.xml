@@ -51,6 +51,35 @@
         android:id="@+id/nav_company"
         android:name="com.cap.techsurvey.ui.CompanyFragment"
         android:label="fragment_company"
-        tools:layout="@layout/fragment_company" />
+        tools:layout="@layout/fragment_company" >
+        <action
+            android:id="@+id/action_nav_company_to_contact_fragment"
+            app:destination="@id/nav_contact"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_contact"
+        android:name="com.cap.techsurvey.ui.ContactFragment"
+        android:label="fragment_contact"
+        tools:layout="@layout/fragment_contact"
+        >
+        <action
+            android:id="@+id/action_nav_contact_to_already_fragment"
+            app:destination="@id/nav_already"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_already"
+        android:name="com.cap.techsurvey.ui.AlreadyFragment"
+        android:label="fragment_already"
+        tools:layout="@layout/fragment_already" />
 
 </navigation>

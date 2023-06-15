@@ -26,6 +26,7 @@ import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 import dagger.hilt.android.internal.Contexts
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.regex.Pattern
 
 
 object Utils {
@@ -58,10 +59,33 @@ object Utils {
         return process(mask, number)
     }
 
+    fun isValidPhoneNumber(phoneNumber: String): Boolean {
+        // The regex pattern for a Brazilian phone number
+        val phonePattern = "\\([1-9]{2}\\) (?:[2-8]|9[1-9])[0-9]{3}\\-[0-9]{4}"
+        val pattern = Pattern.compile(phonePattern)
+        val matcher = pattern.matcher(phoneNumber)
+        return matcher.matches()
+    }
+
     fun isNameValid(name: String): Boolean {
-        val nameRegex = "^[A-Z][a-z]*\\s[A-Z][a-z]*$".toRegex()
+        val nameRegex = "^[a-zA-ZáéíóúÁÉÍÓÚãõÃÕçÇ]+( [a-zA-ZáéíóúÁÉÍÓÚãõÃÕçÇ]+)+$".toRegex()
         return nameRegex.matches(name)
     }
+
+    fun isValidEmail(email: String): Boolean {
+        val emailPattern = ("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
+
+        val pattern = Pattern.compile(emailPattern)
+        val matcher = pattern.matcher(email)
+
+        val bannedDomains = listOf("gmail.com", "yahoo.com", "uol.com.br", "bol.com.br", "outlook.com", "hotmail.com")
+
+        val domain = email.substringAfterLast("@")
+
+        return matcher.matches() && domain !in bannedDomains
+    }
+
 
     fun hideKeyboard(view: View) {
         val inputMethodManager = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

@@ -37,10 +37,10 @@ class FullNameFragment : Fragment() {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val name = view.text.toString()
                 if (!Utils.isNameValid(name)) {
-                    view.error = "Nome inválido. Deve ser no formato 'Nome Sobrenome'"
+                    binding.ilName.error = "Nome inválido. Deve ser no formato 'Nome Sobrenome'"
                 } else {
-                    // Substitua "action_to_next" pelo ID da ação de navegação correta do Navigation Graph
                     NavHostFragment.findNavController(this).navigate(R.id.action_nav_full_name_to_nav_company)
+                    binding.ilName.error = null
                 }
 
                 // Esconde o teclado

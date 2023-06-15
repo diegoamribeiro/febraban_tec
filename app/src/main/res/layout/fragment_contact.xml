@@ -53,25 +53,26 @@
             style="@style/TextStyleUbuntuLightCenteredWhite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="66dp"
-            android:text="@string/label_ask_company_name"
+            android:layout_marginTop="100dp"
+            android:text="@string/label_ask_email"
             android:textSize="38sp"
             app:layout_constraintTop_toBottomOf="@id/tv_lets_go" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/il_company"
+            android:id="@+id/il_email"
             style="@style/CustomTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="@string/hint_company_name"
+            android:hint="@string/hint_email"
             app:layout_constraintTop_toBottomOf="@id/tv_ask">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tv_company"
+                android:id="@+id/et_email"
                 style="@style/CustomEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,27 +82,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="@string/label_ask_role"
+            android:text="@string/label_ask_phone"
             android:textSize="38sp"
-            app:layout_constraintTop_toBottomOf="@id/il_company" />
+            app:layout_constraintTop_toBottomOf="@id/il_email" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/il_role"
+            android:id="@+id/il_phone"
             style="@style/CustomTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="@string/hint_role"
+            android:hint="@string/hint_phone"
             app:layout_constraintTop_toBottomOf="@id/tv_role">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_role"
+                android:id="@+id/et_phone"
                 style="@style/CustomEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="phone"/>
 
         </com.google.android.material.textfield.TextInputLayout>
-
 
 
         <com.google.android.material.button.MaterialButton
@@ -115,8 +116,9 @@
             android:text="@string/next"
             android:textAllCaps="false"
             android:textSize="27sp"
+            app:layout_constraintBottom_toTopOf="@+id/iv_logo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/il_role" />
+            android:layout_marginBottom="50dp"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bt_back"
@@ -129,8 +131,9 @@
             android:text="@string/previous"
             android:textAllCaps="false"
             android:textSize="27sp"
+            app:layout_constraintBottom_toTopOf="@+id/iv_logo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/il_role" />
+            android:layout_marginBottom="50dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

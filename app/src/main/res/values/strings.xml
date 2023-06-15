@@ -6,6 +6,11 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Próximo</string>
     <string name="previous">Voltar</string>
+    <string name="follow">Seguir</string>
+
+    <string name="required_company">O nome da empresa é obrigatório</string>
+    <string name="required_role">O cargo é obrigatório</string>
+    <string name="required_area">A área é obrigatória</string>
 
     <string name="label_qr_code_reading_instruction">Aponte a câmera para o código</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -26,6 +31,15 @@
     <string name="label_ask_role">Qual é o seu cargo na empresa?</string>
     <string name="hint_area">Digite a área</string>
     <string name="label_ask_area">E a área?</string>
+    <string name="hint_email">Digite apenas e-mail comercial</string>
+    <string name="label_ask_email">Qual é o seu e-mail comercial?</string>
+    <string name="hint_phone">(00) 00000-0000</string>
+    <string name="label_ask_phone">Telefone?</string>
+    <string name="label_already">Pronto! \n\nAgora vamos às questões para criarmos o perfil de sua empresa.</string>
+
+    <string name="required_email">Informe um e-mail corporativo válido</string>
+    <string name="required_phone">Informe um formato de telefone válido</string>
+
 
 
 </resources>
