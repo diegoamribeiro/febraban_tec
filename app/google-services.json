@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "407110709850",
+    "project_id": "febraban-firebase",
+    "storage_bucket": "febraban-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407110709850:android:78b52d7aac0b3718b01e63",
+        "android_client_info": {
+          "package_name": "com.cap.techsurvey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407110709850-k1isattk1ot4lj9e61j7bdciq0llaboq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cap.techsurvey",
+            "certificate_hash": "d266dd986a97e773350a36bd6794e007c25a328d"
+          }
+        },
+        {
+          "client_id": "407110709850-s47sfsd86lvk9uokvh34r74he5m4ojlu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOHvVaR5Us5mitnP-Gkacrkol6CCM_oVE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407110709850-s47sfsd86lvk9uokvh34r74he5m4ojlu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

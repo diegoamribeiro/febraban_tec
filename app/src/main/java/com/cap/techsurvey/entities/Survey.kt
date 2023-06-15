@@ -1,6 +1,7 @@
 package com.cap.techsurvey.entities
 
 data class Survey(
+    val id: Int,
     val user: User,
     val questions: List<Question>,
     val url: String
