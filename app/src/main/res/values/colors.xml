@@ -6,6 +6,7 @@
     <color name="transparent">#00000000</color>
     <color name="cian_blue">#56BDF6</color>
     <color name="soft_blue">#9ADBFF</color>
-    <color name="mask_black">#8A000000</color>
+    <color name="mask_black">#B9000000</color>
+    <color name="colorError">#FF0000</color>
 
 </resources>

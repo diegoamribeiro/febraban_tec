@@ -1,19 +1,18 @@
 package com.cap.techsurvey.ui
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-
 import com.cap.techsurvey.R
-import com.cap.techsurvey.databinding.FragmentCompanyBinding
+import com.cap.techsurvey.databinding.FragmentContactBinding
 import com.cap.techsurvey.utils.viewBinding
 
+class ContactFragment : Fragment() {
 
-class CompanyFragment : Fragment() {
+    private val binding:FragmentContactBinding by viewBinding()
 
-    private val binding: FragmentCompanyBinding by viewBinding()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

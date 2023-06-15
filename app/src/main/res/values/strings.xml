@@ -4,8 +4,8 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="next">Próximo</string>
+    <string name="previous">Voltar</string>
 
     <string name="label_qr_code_reading_instruction">Aponte a câmera para o código</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -17,13 +17,14 @@
     <string name="label_refuse_proceed">Eu não aceito prosseguir</string>
     <string name="label_meet">Primeiro é importante nos conhecermos! \n\nMas antes disso, valorizamos sua confiança em nosso aplicativo e estamos empenhados em fornecer uma experiência segura e em conformidade com a LGPD durante o teste.</string>
     <string name="label_lets_go">Vamos lá!</string>
-    <string name="label_company_name">Digite o nome fantasia</string>
+    <string name="label_lastly">E por último:</string>
+    <string name="hint_company_name">Digite o nome fantasia</string>
     <string name="hint_user_name">Escreva aqui e pressione</string>
     <string name="label_ask_user_name">Então, qual o seu nome completo?</string>
     <string name="label_ask_company_name">E o nome da sua empresa?</string>
-    <string name="label_role">Digite o cargo</string>
+    <string name="hint_role">Digite o cargo</string>
     <string name="label_ask_role">Qual é o seu cargo na empresa?</string>
-    <string name="label_area">Digite a área</string>
+    <string name="hint_area">Digite a área</string>
     <string name="label_ask_area">E a área?</string>
 
 

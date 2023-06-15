@@ -8,6 +8,7 @@ import android.graphics.Color.WHITE
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowInsets
@@ -55,6 +56,16 @@ object Utils {
             "(##) ####-####"
         }
         return process(mask, number)
+    }
+
+    fun isNameValid(name: String): Boolean {
+        val nameRegex = "^[A-Z][a-z]*\\s[A-Z][a-z]*$".toRegex()
+        return nameRegex.matches(name)
+    }
+
+    fun hideKeyboard(view: View) {
+        val inputMethodManager = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 

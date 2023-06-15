@@ -55,21 +55,27 @@
         />
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/CustomTextInputLayoutStyle"
         android:id="@+id/il_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="@string/hint_user_name"
         app:layout_constraintTop_toBottomOf="@id/tv_ask"
+        app:errorEnabled="true"
+        app:errorTextColor="@color/colorError"
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tv_name"
             style="@style/CustomEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_user_name"
+            android:textAllCaps="true"
+            android:inputType="textCapWords"/>
 
     </com.google.android.material.textfield.TextInputLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
