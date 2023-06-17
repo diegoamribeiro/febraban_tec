@@ -132,6 +132,7 @@ object Utils {
         }
         return false
     }
+
     fun generateQRCode(text: String, imageView: ImageView) {
         val writer = QRCodeWriter()
         try {
@@ -149,7 +150,6 @@ object Utils {
             e.printStackTrace()
         }
     }
-
 
     fun hideStatusBar(window: Window){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

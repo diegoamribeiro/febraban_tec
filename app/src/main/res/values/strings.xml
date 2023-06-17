@@ -40,6 +40,33 @@
     <string name="required_email">Informe um e-mail corporativo válido</string>
     <string name="required_phone">Informe um formato de telefone válido</string>
 
+<!--    Questão 1-->
+    <string name="text_ask_one">1. Em qual estágio a sua empresa encontra-se para _______</string>
+    <string name="text_ask_one_option_one">1.	Tem atividades já desenvolvidas</string>
+    <string name="text_ask_one_option_two">2.	Tem atividades ainda em desenvolvimento interno, sem produtos / serviços / soluções formatadas</string>
+    <string name="text_ask_one_option_three">3.	Não há atividades, mas esse tema é pauta na empresa</string>
+
+<!--    Questão 2-->
+    <string name="text_ask_two">2. Atualmente, em qual ETAPA entende que a sua empresa está quando falamos de</string>
+    <string name="text_ask_two_option_one">1.	Atualmente, em qual ETAPA entende que a sua empresa está quando falamos de</string>
+    <string name="text_ask_two_option_two">2.	Planejamento</string>
+    <string name="text_ask_two_option_three">3.	Preparar, adequar</string>
+    <string name="text_ask_two_option_four">4.	Desenvolver soluções</string>
+    <string name="text_ask_two_option_five">5.	Viabilizar, lançar soluções</string>
+    <string name="text_ask_two_option_six">6.	Rentabilizar soluções já lançadas</string>
+    <string name="text_ask_two_option_seven">7.	Não sei</string>
+    <string name="text_ask_two_option_eight">7.	Não se aplica</string>
+
+<!--    Questão 3-->
+    <string name="text_ask_three">3. Em uma escala de 1 a 5, em que 1 é nada e 5 é muito, você diria que a sua empresa:</string>
+    <string name="text_ask_three_option_one">a) Faz uma comunicação sobre [TRAZER OU CONCATENAR ALTERNATIVAS P.1] direcionada aos CLIENTES FINAIS.</string>
+    <string name="text_ask_three_option_two">b) Faz uma comunicação sobre [TRAZER OU CONCATENAR ALTERNATIVAS P.1] direcionada a outros STAKEHOLDERS (acionistas, investidores, parceiros ou outros)?</string>
+
+<!--    Questão 4-->
+    <string name="text_ask_four">4. 7.	Há metas de desempenho na sua empresa voltadas para os impactos do(a) </string>
+
+
+
 
 
 </resources>
