@@ -161,11 +161,11 @@ class OnboardFragment : Fragment() {
         document.close()
 
         lifecycleScope.launch(Dispatchers.IO){
-            sendEmail(
-                "dmribeiro87@gmail.com",
-                "Teste",
-                    pdfFile
-                )
+//            sendEmail(
+//                "dmribeiro87@gmail.com",
+//                "Teste",
+//                    pdfFile
+//                )
         }
 
 
