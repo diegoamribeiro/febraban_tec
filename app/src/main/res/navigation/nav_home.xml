@@ -91,6 +91,50 @@
         <argument
             android:name="currentUser"
             app:argType="com.cap.techsurvey.entities.User" />
+        <action
+            android:id="@+id/action_nav_already_to_nav_question_one"
+            app:destination="@id/nav_question_one"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_question_one"
+        android:name="com.cap.techsurvey.ui.questions.QuestionOneFragment"
+        android:label="fragment_question_one"
+        tools:layout="@layout/fragment_question_one" >
+        <action
+            android:id="@+id/action_nav_question_one_to_nav_question_two"
+            app:destination="@id/nav_question_two"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="currentUser"
+            app:argType="com.cap.techsurvey.entities.User" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_question_two"
+        android:name="com.cap.techsurvey.ui.questions.QuestionTwoFragment"
+        android:label="fragment_question_two"
+        tools:layout="@layout/fragment_question_two" >
+        <argument
+            android:name="currentSurvey"
+            app:argType="com.cap.techsurvey.entities.Survey" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_question_three"
+        android:name="com.cap.techsurvey.ui.questions.QuestionThreeFragment"
+        android:label="fragment_question_three"
+        tools:layout="@layout/fragment_question_three"
+        >
+        <argument
+            android:name="currentSurvey"
+            app:argType="com.cap.techsurvey.entities.Survey" />
     </fragment>
 
 </navigation>

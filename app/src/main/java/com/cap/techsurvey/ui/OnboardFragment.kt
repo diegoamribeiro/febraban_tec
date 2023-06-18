@@ -137,7 +137,7 @@ class OnboardFragment : Fragment() {
         document.add(Paragraph("Email: ${survey.user.email}").setFont(normalFont).setFontSize(12f))
         document.add(Paragraph("Company: ${survey.user.company}").setFont(normalFont).setFontSize(12f))
 
-        for (question in survey.questions) {
+        for (question in survey.questions!!) {
             document.add(Paragraph("Question ID: ${question.id}").setFont(normalFont).setFontSize(12f))
             document.add(Paragraph("Pergunta: ${question.text}").setFont(boldFont).setFontSize(14f))
             // Para cada opção na questão...

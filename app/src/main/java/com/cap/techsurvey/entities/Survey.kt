@@ -5,8 +5,8 @@ import java.io.Serializable
 data class Survey(
     val id: Int,
     val user: User,
-    val questions: List<Question>,
-    val url: String
+    val questions: List<Question>? = null,
+    val url: String? = null
 ) : Serializable
 
 data class Question(

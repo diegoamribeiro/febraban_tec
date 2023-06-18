@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.questions.QuestionOneFragment"
-    android:background="@drawable/bg_default">
+    tools:context=".ui.questions.QuestionTwoFragment"
+    android:background="@drawable/bg_default"
+    android:fillViewport="true"
+    android:clipToPadding="false">
 
-    <ImageView
-        android:id="@+id/iv_mask"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@color/mask_black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_mask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/mask_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
     <TextView
         style="@style/TextStyleUbuntuLightCenteredWhite"
@@ -22,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="@string/text_ask_one"
+        android:text="@string/text_ask_two"
         android:textSize="40sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_mask"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/tv_ask_one"
         app:layout_constraintStart_toStartOf="@id/tv_ask_one"
         app:layout_constraintTop_toBottomOf="@id/tv_ask_one"
@@ -47,7 +56,7 @@
             style="@style/RadioButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_ask_one_option_one"
+            android:text="@string/text_ask_two_option_one"
             android:textSize="25sp" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
@@ -55,7 +64,7 @@
             style="@style/RadioButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_ask_one_option_two"
+            android:text="@string/text_ask_two_option_two"
             android:textSize="25sp" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
@@ -63,7 +72,39 @@
             style="@style/RadioButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_ask_one_option_three"
+            android:text="@string/text_ask_two_option_three"
+            android:textSize="25sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_button4"
+            style="@style/RadioButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_ask_two_option_four"
+            android:textSize="25sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_button5"
+            style="@style/RadioButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_ask_two_option_five"
+            android:textSize="25sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_button6"
+            style="@style/RadioButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_ask_two_option_six"
+            android:textSize="25sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_button7"
+            style="@style/RadioButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_ask_two_option_seven"
             android:textSize="25sp" />
 
     </RadioGroup>
@@ -107,5 +148,6 @@
         app:layout_constraintBottom_toTopOf="@+id/iv_logo"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="50dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
