@@ -11,6 +11,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.cap.techsurvey.R
 import com.cap.techsurvey.databinding.FragmentFullNameBinding
@@ -44,8 +45,10 @@ class FullNameFragment : Fragment() {
         }
 
         binding.btNext.setOnClickListener {
+
             if (Utils.isNameValid(binding.etName.text.toString())){
-                NavHostFragment.findNavController(this).navigate(R.id.action_nav_full_name_to_nav_company)
+                val action = FullNameFragmentDirections.actionNavFullNameToNavCompany(binding.etName.text.toString())
+                NavHostFragment.findNavController(this).navigate(action)
                 binding.ilName.error = null
             }else{
                 binding.ilName.error = "Nome inválido. Deve ser no formato 'Nome Sobrenome'"

@@ -1,20 +1,24 @@
 package com.cap.techsurvey.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.navArgs
 
 import com.cap.techsurvey.R
 import com.cap.techsurvey.databinding.FragmentCompanyBinding
+import com.cap.techsurvey.entities.User
 import com.cap.techsurvey.utils.viewBinding
 
 
 class CompanyFragment : Fragment() {
 
     private val binding: FragmentCompanyBinding by viewBinding()
+    private val args: CompanyFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,14 +30,22 @@ class CompanyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
+        //Log.d("***Args - ", args.currentName)
     }
 
     private fun setListeners() {
 
         binding.btNext.setOnClickListener {
             if (isValid(binding.etCompany.text.toString(), binding.etRole.text.toString())) {
+                val user = User(
+                    name = args.currentName,
+                    company = binding.etCompany.text.toString(),
+                    role = binding.etRole.text.toString(),
+                    area = binding.etArea.text.toString()
+                )
+                val action = CompanyFragmentDirections.actionNavCompanyToContactFragment(user)
                 NavHostFragment.findNavController(this)
-                    .navigate(R.id.action_nav_company_to_contact_fragment)
+                    .navigate(action)
 
             }
         }
