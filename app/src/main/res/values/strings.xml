@@ -11,6 +11,7 @@
     <string name="required_company">O nome da empresa é obrigatório</string>
     <string name="required_role">O cargo é obrigatório</string>
     <string name="required_area">A área é obrigatória</string>
+    <string name="required_name">O nome é obrigatório</string>
 
     <string name="label_qr_code_reading_instruction">Aponte a câmera para o código</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -40,13 +41,13 @@
     <string name="required_email">Informe um e-mail corporativo válido</string>
     <string name="required_phone">Informe um formato de telefone válido</string>
 
-<!--    Questão 1-->
+    <!--    Questão 1-->
     <string name="text_ask_one">1. Em qual estágio a sua empresa encontra-se para _______</string>
     <string name="text_ask_one_option_one">1. Tem atividades já desenvolvidas</string>
     <string name="text_ask_one_option_two">2. Tem atividades ainda em desenvolvimento interno, sem produtos / serviços / soluções formatadas</string>
     <string name="text_ask_one_option_three">3. Não há atividades, mas esse tema é pauta na empresa</string>
 
-<!--    Questão 2-->
+    <!--    Questão 2-->
     <string name="text_ask_two">2. Atualmente, em qual ETAPA entende que a sua empresa está quando falamos de</string>
     <string name="text_ask_two_option_one">1. Planejamento</string>
     <string name="text_ask_two_option_two">2. Preparar, adequar</string>
@@ -56,30 +57,30 @@
     <string name="text_ask_two_option_six">6. Não sei</string>
     <string name="text_ask_two_option_seven">7. Não se aplica</string>
 
-<!--    Questão 3-->
+    <!--    Questão 3-->
     <string name="text_ask_three">3. Em uma escala de 1 a 5, em que 1 é nada e 5 é muito, você diria que a sua empresa:</string>
     <string name="text_ask_three_option_one">a) Faz uma comunicação sobre [TRAZER OU CONCATENAR ALTERNATIVAS P.1] direcionada aos CLIENTES FINAIS.</string>
     <string name="text_ask_three_option_two">b) Faz uma comunicação sobre [TRAZER OU CONCATENAR ALTERNATIVAS P.1] direcionada a outros STAKEHOLDERS (acionistas, investidores, parceiros ou outros)?</string>
 
-<!--    Questão 4-->
+    <!--    Questão 4-->
     <string name="text_ask_four">4.	Há metas de desempenho na sua empresa voltadas para os impactos do(a)</string>
     <string name="text_ask_four_option_one">1. Sim</string>
     <string name="text_ask_four_option_two">2. Não</string>
     <string name="text_ask_four_option_three">3. Não sei</string>
     <string name="text_ask_four_option_four">4. Não se aplica</string>
 
-<!--    Questão 5-->
+    <!--    Questão 5-->
     <string name="text_ask_five">5.	Há uma área específica ou pessoas dedicadas a</string>
     <string name="text_ask_five_option_one">1. Sim</string>
     <string name="text_ask_five_option_two">2. Não</string>
     <string name="text_ask_five_option_three">3. Não sei</string>
 
-<!--    Questão 6-->
+    <!--    Questão 6-->
     <string name="text_ask_six">6. Em uma escala de 1 a 5, em que 1 é nada e 5 é muito, você diria que a sua empresa:</string>
     <string name="text_ask_six_option_one">a) Faz uma comunicação sobre [TRAZER OU CONCATENAR ALTERNATIVAS P.1] direcionada aos CLIENTES FINAIS.</string>
     <string name="text_ask_six_option_two">b) Faz uma comunicação sobre [TRAZER OU CONCATENAR ALTERNATIVAS P.1] direcionada a outros STAKEHOLDERS (acionistas, investidores, parceiros ou outros)?</string>
 
-<!--    Questão 7-->
+    <!--    Questão 7-->
     <string name="text_ask_seven">7. O quanto você concorda com as frases abaixo?</string>
     <string name="text_ask_seven_option_one">a) A empresa tem hoje novas fontes de receita que surgiram com [TRAZER OU CONCATENAR ALTERNATIVAS P.1]</string>
     <string name="text_ask_seven_option_two">b) A empresa está conseguindo monetizar investimentos em tecnologia ligados a(ao) [TRAZER OU CONCATENAR ALTERNATIVAS P.1]</string>
@@ -88,7 +89,7 @@
     <string name="text_ask_seven_option_five">e) A sua empresa está utilizando todo o potencial do [TRAZER OU CONCATENAR ALTERNATIVAS P.1] no momento</string>
     <string name="text_ask_seven_option_six">f) [TRAZER OU CONCATENAR ALTERNATIVAS P.1] está ajudando a atingir os objetivos da empresa</string>
 
-<!--    Opções Múltiplas-->
+    <!--    Opções Múltiplas-->
     <string name="text_multiple_options_one">Discordo totalmente</string>
     <string name="text_multiple_options_two">Discordo parcialmente</string>
     <string name="text_multiple_options_three">Nem concordo, nem discordo</string>
@@ -96,9 +97,7 @@
     <string name="text_multiple_options_five">Concordo totalmente</string>
     <string name="text_multiple_options_six">Não sei</string>
     <string name="text_multiple_options_seven">Não se aplica</string>
-
-
-
+    <string name="text_privacy">Política de Privacidade</string>
 
 
 </resources>

@@ -2,11 +2,14 @@ package com.cap.techsurvey.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.cap.techsurvey.R
@@ -33,36 +36,25 @@ class FullNameFragment : Fragment() {
     }
 
     private fun setListeners(){
-        binding.tvName.setOnEditorActionListener { view, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                val name = view.text.toString()
-                if (!Utils.isNameValid(name)) {
-                    binding.ilName.error = "Nome inválido. Deve ser no formato 'Nome Sobrenome'"
-                } else {
-                    NavHostFragment.findNavController(this).navigate(R.id.action_nav_full_name_to_nav_company)
-                    binding.ilName.error = null
-                }
 
-                // Esconde o teclado
-                hideKeyboard(view)
-                true
-            } else {
-                false
-            }
-        }
-
-
-        binding.tvName.setOnFocusChangeListener { _, hasFocus ->
+        binding.etName.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 binding.ilName.hint = ""
-            } else {
-                binding.ilName.hint = getString(R.string.hint_user_name)
             }
         }
+
+        binding.btNext.setOnClickListener {
+            if (Utils.isNameValid(binding.etName.text.toString())){
+                NavHostFragment.findNavController(this).navigate(R.id.action_nav_full_name_to_nav_company)
+                binding.ilName.error = null
+            }else{
+                binding.ilName.error = "Nome inválido. Deve ser no formato 'Nome Sobrenome'"
+            }
+        }
+
+        binding.btBack.setOnClickListener {
+            NavHostFragment.findNavController(this).navigateUp()
+        }
     }
-
-
-
-
 
 }

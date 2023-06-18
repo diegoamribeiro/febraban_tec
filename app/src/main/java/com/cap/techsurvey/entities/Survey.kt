@@ -10,7 +10,8 @@ data class Survey(
 data class Question(
     val id: Int,
     val text: String,
-    val options: List<Option>
+    val options: List<Option>,
+    val score: Int? = null
 )
 
 data class Option(

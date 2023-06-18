@@ -68,9 +68,11 @@ object Utils {
     }
 
     fun isNameValid(name: String): Boolean {
-        val nameRegex = "^[a-zA-ZáéíóúÁÉÍÓÚãõÃÕçÇ]+( [a-zA-ZáéíóúÁÉÍÓÚãõÃÕçÇ]+)+$".toRegex()
-        return nameRegex.matches(name)
+        val nameParts = name.trim().split("\\s+".toRegex())
+        return nameParts.size >= 2 && nameParts.all { it.matches("[\\p{L}\\s'.-]+".toRegex()) }
     }
+
+    // Diego Ribeiro Eugênio José Da Costa Neto
 
     fun isValidEmail(email: String): Boolean {
         val emailPattern = ("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
