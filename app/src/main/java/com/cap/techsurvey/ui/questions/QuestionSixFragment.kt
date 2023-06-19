@@ -29,6 +29,10 @@ class QuestionSixFragment : Fragment() {
     }
 
     private fun setListeners(){
+        binding.btNext.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(R.id.action_nav_question_six_to_nav_question_seven)
+        }
+
         binding.btBack.setOnClickListener {
             NavHostFragment.findNavController(this).navigateUp()
         }
