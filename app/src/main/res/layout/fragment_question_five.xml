@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="@string/text_ask_three"
+            android:text="@string/text_ask_five"
             android:textSize="40sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -52,59 +52,27 @@
             app:layout_constraintVertical_chainStyle="packed">
 
             <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_button1"
+                android:id="@+id/radio_button_one"
                 style="@style/RadioButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_ask_two_option_one"
+                android:text="@string/text_ask_five_option_one"
                 android:textSize="25sp" />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_button2"
+                android:id="@+id/radio_button_two"
                 style="@style/RadioButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_ask_two_option_two"
+                android:text="@string/text_ask_five_option_two"
                 android:textSize="25sp" />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_button3"
+                android:id="@+id/radio_button_three"
                 style="@style/RadioButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_ask_two_option_three"
-                android:textSize="25sp" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_button4"
-                style="@style/RadioButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_ask_two_option_four"
-                android:textSize="25sp" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_button5"
-                style="@style/RadioButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_ask_two_option_five"
-                android:textSize="25sp" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_button6"
-                style="@style/RadioButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_ask_two_option_six"
-                android:textSize="25sp" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_button7"
-                style="@style/RadioButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_ask_two_option_seven"
+                android:text="@string/text_ask_five_option_three"
                 android:textSize="25sp" />
 
         </RadioGroup>

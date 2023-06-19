@@ -14,6 +14,8 @@ import com.cap.techsurvey.utils.viewBinding
 
 class QuestionThreeFragment : Fragment() {
 
+    private val args: QuestionThreeFragmentArgs by navArgs()
+
     private val binding: FragmentQuestionThreeBinding by viewBinding()
 
     override fun onCreateView(
@@ -25,9 +27,14 @@ class QuestionThreeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setListeners()
     }
 
     private fun setListeners() {
+        binding.btNext.setOnClickListener {
+            val action = QuestionThreeFragmentDirections.actionNavQuestionThreeToNavQuestionFour(args.currentSurvey)
+            NavHostFragment.findNavController(this).navigate(action)
+        }
 
         binding.btBack.setOnClickListener {
             NavHostFragment.findNavController(this).navigateUp()

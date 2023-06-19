@@ -58,9 +58,9 @@
     <string name="text_ask_two_option_seven">7. Não se aplica</string>
 
     <!--    Questão 3-->
-    <string name="text_ask_three">3. Em uma escala de 1 a 5, em que 1 é nada e 5 é muito, você diria que a sua empresa:</string>
-    <string name="text_ask_three_option_one">a) Faz uma comunicação sobre [TRAZER OU CONCATENAR ALTERNATIVAS P.1] direcionada aos CLIENTES FINAIS.</string>
-    <string name="text_ask_three_option_two">b) Faz uma comunicação sobre [TRAZER OU CONCATENAR ALTERNATIVAS P.1] direcionada a outros STAKEHOLDERS (acionistas, investidores, parceiros ou outros)?</string>
+    <string name="text_ask_three">3. Em uma escala de 1 a 5, em que 1 é nada e 5 é muito:</string>
+    <string name="text_ask_three_option_one">a) O quanto [TRAZER OU CONCATENAR ALTERNATIVAS P.1] é prioridade na sua empresa atualmente?</string>
+    <string name="text_ask_three_option_two">b) O quanto [TRAZER OU CONCATENAR ALTERNATIVAS P.1] é citado pela liderança da sua empresa em comunicados internos e para o mercado?</string>
 
     <!--    Questão 4-->
     <string name="text_ask_four">4.	Há metas de desempenho na sua empresa voltadas para os impactos do(a)</string>
