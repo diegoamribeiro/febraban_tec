@@ -29,10 +29,17 @@ class QuestionOneFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("***AlreadyFragment", args.currentUser.toString())
+        setListeners()
 
+    }
+
+    private fun setListeners() {
         binding.btNext.setOnClickListener {
             val action = QuestionOneFragmentDirections.actionNavQuestionOneToNavQuestionTwo(Survey(1, args.currentUser, questions = null, url = null))
             NavHostFragment.findNavController(this).navigate(action)
+        }
+        binding.btBack.setOnClickListener {
+            NavHostFragment.findNavController(this).navigateUp()
         }
     }
 

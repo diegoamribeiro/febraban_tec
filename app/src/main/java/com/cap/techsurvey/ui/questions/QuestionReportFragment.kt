@@ -6,15 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.navArgs
 import com.cap.techsurvey.R
-import com.cap.techsurvey.databinding.FragmentQuestionThreeBinding
+import com.cap.techsurvey.databinding.FragmentQuestionReportBinding
 import com.cap.techsurvey.utils.viewBinding
 
 
-class QuestionThreeFragment : Fragment() {
+class QuestionReportFragment : Fragment() {
 
-    private val binding: FragmentQuestionThreeBinding by viewBinding()
+    private val binding: FragmentQuestionReportBinding by viewBinding()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,14 +24,10 @@ class QuestionThreeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setListeners()
     }
 
-    private fun setListeners() {
+    private fun setListeners(){
 
-        binding.btBack.setOnClickListener {
-            NavHostFragment.findNavController(this).navigateUp()
-        }
     }
-
-
 }

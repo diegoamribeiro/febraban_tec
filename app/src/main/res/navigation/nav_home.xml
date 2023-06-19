@@ -124,6 +124,13 @@
         <argument
             android:name="currentSurvey"
             app:argType="com.cap.techsurvey.entities.Survey" />
+        <action
+            android:id="@+id/action_nav_question_two_to_nav_question_three"
+            app:destination="@id/nav_question_three"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -135,6 +142,79 @@
         <argument
             android:name="currentSurvey"
             app:argType="com.cap.techsurvey.entities.Survey" />
+        <action
+            android:id="@+id/action_nav_question_three_to_nav_question_four"
+            app:destination="@id/nav_question_four"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+    <fragment
+        android:id="@+id/nav_question_four"
+        android:name="com.cap.techsurvey.ui.questions.QuestionFourFragment"
+        android:label="fragment_question_four"
+        tools:layout="@layout/fragment_question_four" >
+        <argument
+            android:name="currentSurvey"
+            app:argType="com.cap.techsurvey.entities.Survey" />
+        <action
+            android:id="@+id/action_nav_question_four_to_nav_question_five"
+            app:destination="@id/nav_question_five"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_question_five"
+        android:name="com.cap.techsurvey.ui.questions.QuestionFiveFragment"
+        android:label="fragment_question_five"
+        tools:layout="@layout/fragment_question_five" >
+        <argument
+            android:name="currentSurvey"
+            app:argType="com.cap.techsurvey.entities.Survey" />
+        <action
+            android:id="@+id/action_nav_question_five_to_nav_question_six"
+            app:destination="@id/nav_question_six"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_question_six"
+        android:name="com.cap.techsurvey.ui.questions.QuestionSixFragment"
+        android:label="fragment_question_six"
+        tools:layout="@layout/fragment_question_six" >
+        <argument
+            android:name="currentSurvey"
+            app:argType="com.cap.techsurvey.entities.Survey" />
+        <action
+            android:id="@+id/action_nav_question_six_to_nav_question_seven"
+            app:destination="@id/nav_question_seven"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_question_seven"
+        android:name="com.cap.techsurvey.ui.questions.QuestionSevenFragment"
+        android:label="fragment_question_seven"
+        tools:layout="@layout/fragment_question_seven" >
+        <action
+            android:id="@+id/action_nav_question_seven_to_nav_report"
+            app:destination="@id/nav_report"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_report"
+        android:name="com.cap.techsurvey.ui.questions.QuestionReportFragment"
+        android:label="fragment_question_report"
+        tools:layout="@layout/fragment_question_report" />
 
 </navigation>
