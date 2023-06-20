@@ -17,7 +17,6 @@ import com.cap.techsurvey.utils.viewBinding
 
 
 class AlreadyFragment : Fragment() {
-
     private val binding: FragmentAlreadyBinding by viewBinding()
     private val args: AlreadyFragmentArgs by navArgs()
     private val provider = SurveyProvider()
@@ -36,15 +35,12 @@ class AlreadyFragment : Fragment() {
             provider.create(survey).addOnSuccessListener { documentReference ->
                 Log.d("***Firebase", "DocumentSnapshot written with ID: ${documentReference.id}")
                 Log.d("***FirebaseSurvey", survey.toString())
-                val action = AlreadyFragmentDirections.actionNavAlreadyToNavQuestionOne(survey)
+                val newSurvey = survey.copy(id = documentReference.id)
+                val action = AlreadyFragmentDirections.actionNavAlreadyToNavQuestionOne(newSurvey)
                 NavHostFragment.findNavController(this).navigate(action)
             }.addOnFailureListener { e ->
                 Log.w("***Firebase", "Error adding document", e)
             }
         }
-
-
     }
-
-
 }

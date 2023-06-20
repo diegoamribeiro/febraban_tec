@@ -12,7 +12,7 @@ data class Survey(
 data class Question(
     val id: String? = null,
     val text: String? = null,
-    var options: Option? = null,
+    var option: Option? = null,
     val weight: Int? = null,
     var score: Double? = null
 ) : Serializable

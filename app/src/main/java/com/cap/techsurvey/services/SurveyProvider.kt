@@ -19,4 +19,7 @@ class SurveyProvider {
         return db.document(survey.id).set(survey, SetOptions.merge())
     }
 
+    fun getNewDocumentReference(): DocumentReference {
+        return db.document()
+    }
 }

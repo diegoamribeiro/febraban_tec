@@ -24,6 +24,8 @@ class QuestionOneFragment : Fragment() {
     private lateinit var survey: Survey
     private lateinit var question: Question
     private val provider = SurveyProvider()
+    private val questions = mutableListOf<Question>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,39 +36,13 @@ class QuestionOneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("***FragmentOne", args.currentSurvey.toString())
-        question = Question(
-            id = "Q1",
-            text = "",
-            weight = 3
-        )
 
-        survey = Survey(
-            id = "",
-            user = args.currentSurvey.user,
-            questions = mutableListOf(question),
-            url = null
-        )
-
-        val restoredOption1 = restoreOptionSelection("EQ1")
-        val restoredOption2 = restoreOptionSelection("EQ2")
-        val restoredOption3 = restoreOptionSelection("EQ3")
-        if (restoredOption1 != null) {
-            binding.radioButton1.isChecked = true
-            manageOptionSelection("EQ1", true, restoredOption1.score!!)
-        }
-        if (restoredOption2 != null) {
-            binding.radioButton2.isChecked = true
-            manageOptionSelection("EQ2", true, restoredOption2.score!!)
-        }
-        if (restoredOption3 != null) {
-            binding.radioButton3.isChecked = true
-            manageOptionSelection("EQ3", true, restoredOption3.score!!)
-        }
         setListeners()
     }
 
     private fun setListeners() {
+
+
         binding.radioButton1.setOnCheckedChangeListener { _, isChecked ->
             manageOptionSelection("EQ1", isChecked, 3)
         }
@@ -75,19 +51,25 @@ class QuestionOneFragment : Fragment() {
             manageOptionSelection("EQ2", isChecked, 2)
         }
 
-        binding.radioButton3.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.radioButton3.setOnCheckedChangeListener { _, isChecked ->
+
             manageOptionSelection("EQ3", isChecked, 1)
         }
 
+        survey = Survey(
+            id = args.currentSurvey.id,
+            user = args.currentSurvey.user,
+            questions = questions,
+            url = null
+        )
+
         binding.btNext.setOnClickListener {
-            provider.update(survey).addOnSuccessListener { documentReference ->
-                Log.d("***Firebase", "DocumentSnapshot written with ID: ${documentReference.toString()}")
-                // Aqui você pode configurar o id da survey
-                Log.d("***Survey", survey.toString())
+            provider.update(survey).addOnSuccessListener {
+                Log.d("***Firebase", "DocumentSnapshot updated with ID: ${survey.id}")
                 val action = QuestionOneFragmentDirections.actionNavQuestionOneToNavQuestionTwo(survey)
                 NavHostFragment.findNavController(this).navigate(action)
             }.addOnFailureListener { e ->
-                Log.w("***Firebase", "Error adding document", e)
+                Log.w("***Firebase", "Error updating document", e)
             }
         }
 
@@ -96,36 +78,17 @@ class QuestionOneFragment : Fragment() {
         }
     }
 
-    private fun saveOptionSelection(id: String, isSelected: Boolean, score: Int) {
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
-        with (sharedPref.edit()) {
-            putBoolean(id, isSelected)
-            putInt("$id-score", score)
-            apply()
-        }
-    }
-
-    private fun restoreOptionSelection(id: String): Option? {
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return null
-        val isSelected = sharedPref.getBoolean(id, false)
+    private fun manageOptionSelection(optionId: String, isSelected: Boolean, score: Int) {
+        question = Question(
+            id = "Q1",
+            text = "",
+            weight = 3
+        )
         if (isSelected) {
-            val score = sharedPref.getInt("$id-score", 0)
-            return Option(id, "", null, isSelected, score)
-        }
-        return null
-    }
-
-    private fun manageOptionSelection(id: String, isSelected: Boolean, score: Int) {
-        saveOptionSelection(id, isSelected, score)
-        if (isSelected) {
-            val option = Option(id, "", null, true, score)
-            question.options = option
-            question.score = option.score!! / question.weight!!.toDouble()
-        } else {
-            question.options = null
-            question.score = null
+            val option = Option(id = optionId, score = score)
+            val newQuestion = Question(id = question.id, option = option,  score = (option.score!!.toDouble() / question.weight!!))
+            Log.d("***NewQuestion", "Option selected: ${question.option}. Question is now: $newQuestion")
+            questions.add(newQuestion)
         }
     }
 }
-
-
