@@ -10,6 +10,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.cap.techsurvey.R
 import com.cap.techsurvey.databinding.FragmentQuestionFourBinding
+import com.cap.techsurvey.entities.Option
+import com.cap.techsurvey.entities.Question
+import com.cap.techsurvey.entities.Survey
+import com.cap.techsurvey.services.SurveyProvider
 import com.cap.techsurvey.utils.viewBinding
 
 
@@ -17,6 +21,9 @@ class QuestionFourFragment : Fragment() {
 
     private val binding: FragmentQuestionFourBinding by viewBinding()
     private val args: QuestionFourFragmentArgs by navArgs()
+    private lateinit var survey: Survey
+    private val questions = mutableListOf<Question>()
+    private val provider = SurveyProvider()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,18 +35,59 @@ class QuestionFourFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("***Four", args.currentSurvey.toString())
+        questions.clear()
         setListeners()
     }
 
     private fun setListeners(){
 
+        binding.radioButtonOne.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelection("EQ1", isChecked, 1)
+        }
+        binding.radioButtonTwo.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelection("EQ2", isChecked, 0)
+        }
+        binding.radioButtonThree.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelection("EQ3", isChecked, 0)
+        }
+        binding.radioButtonFour.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelection("EQ4", isChecked, 0)
+        }
+
+        questions.addAll(args.currentSurvey.questions!!)
+        survey = Survey(
+            id = args.currentSurvey.id,
+            user = args.currentSurvey.user,
+            questions = questions,
+            url = null
+        )
+
         binding.btNext.setOnClickListener {
-            val action = QuestionFourFragmentDirections.actionNavQuestionFourToNavQuestionFive(args.currentSurvey)
-            NavHostFragment.findNavController(this).navigate(action)
+            provider.update(survey).addOnSuccessListener {
+                val action = QuestionFourFragmentDirections.actionNavQuestionFourToNavQuestionFive(survey)
+                NavHostFragment.findNavController(this).navigate(action)
+            }.addOnFailureListener { e ->
+                Log.w("***Firebase", "Error updating document", e)
+            }
         }
 
         binding.btBack.setOnClickListener {
             NavHostFragment.findNavController(this).navigateUp()
+        }
+    }
+
+    private fun manageOptionSelection(optionId: String, isSelected: Boolean, score: Int) {
+        val question = Question(
+            id = "Q4",
+            text = "",
+            weight = 1
+        )
+        val option = Option(id = optionId, score = score)
+        val newQuestion = Question(id = question.id, option = option, weight =  question.weight, score = (option.score!!.toDouble() / question.weight!!))
+        if (isSelected) {
+            questions.add(newQuestion)
+        }else{
+            questions.remove(newQuestion)
         }
     }
 
