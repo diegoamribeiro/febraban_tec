@@ -3,24 +3,26 @@ package com.cap.techsurvey.entities
 import java.io.Serializable
 
 data class Survey(
-    val id: Int,
+    var id: String,
     val user: User,
     val questions: List<Question>? = null,
     val url: String? = null
 ) : Serializable
 
 data class Question(
-    val id: Int,
-    val text: String,
-    val options: List<Option>,
-    val score: Int? = null
+    val id: String? = null,
+    val text: String? = null,
+    var options: Option? = null,
+    val weight: Int? = null,
+    var score: Double? = null
 ) : Serializable
 
 data class Option(
-    val id: Int,
-    val text: String,
+    val id: String? = null,
+    val text: String? = null,
     val answer: String? = null,
-    var isSelected: Boolean = false
+    var isSelected: Boolean = false,
+    val score: Int? = null
 ) : Serializable
 
 data class User(

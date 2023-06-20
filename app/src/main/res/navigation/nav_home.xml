@@ -111,8 +111,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <argument
-            android:name="currentUser"
-            app:argType="com.cap.techsurvey.entities.User" />
+            android:name="currentSurvey"
+            app:argType="com.cap.techsurvey.entities.Survey" />
     </fragment>
 
     <fragment

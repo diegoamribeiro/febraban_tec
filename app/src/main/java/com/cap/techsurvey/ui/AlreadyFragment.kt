@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.cap.techsurvey.databinding.FragmentAlreadyBinding
+import com.cap.techsurvey.entities.Survey
+import com.cap.techsurvey.services.SurveyProvider
+import com.cap.techsurvey.ui.questions.QuestionOneFragmentDirections
 import com.cap.techsurvey.utils.viewBinding
 
 
@@ -17,6 +20,7 @@ class AlreadyFragment : Fragment() {
 
     private val binding: FragmentAlreadyBinding by viewBinding()
     private val args: AlreadyFragmentArgs by navArgs()
+    private val provider = SurveyProvider()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,10 +31,19 @@ class AlreadyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val survey = Survey("", args.currentUser)
         binding.btStart.setOnClickListener {
-            val action = AlreadyFragmentDirections.actionNavAlreadyToNavQuestionOne(args.currentUser)
-            NavHostFragment.findNavController(this).navigate(action)
+            provider.create(survey).addOnSuccessListener { documentReference ->
+                Log.d("***Firebase", "DocumentSnapshot written with ID: ${documentReference.id}")
+                Log.d("***FirebaseSurvey", survey.toString())
+                val action = AlreadyFragmentDirections.actionNavAlreadyToNavQuestionOne(survey)
+                NavHostFragment.findNavController(this).navigate(action)
+            }.addOnFailureListener { e ->
+                Log.w("***Firebase", "Error adding document", e)
+            }
         }
+
+
     }
 
 
