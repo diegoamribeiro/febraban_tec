@@ -22,7 +22,6 @@ class QuestionOneFragment : Fragment() {
     private val binding: FragmentQuestionOneBinding by viewBinding()
     private val args: QuestionOneFragmentArgs by navArgs()
     private lateinit var survey: Survey
-    private lateinit var question: Question
     private val provider = SurveyProvider()
     private val questions = mutableListOf<Question>()
 
@@ -36,12 +35,11 @@ class QuestionOneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        questions.clear()
         setListeners()
     }
 
     private fun setListeners() {
-
 
         binding.radioButton1.setOnCheckedChangeListener { _, isChecked ->
             manageOptionSelection("EQ1", isChecked, 3)
@@ -79,16 +77,17 @@ class QuestionOneFragment : Fragment() {
     }
 
     private fun manageOptionSelection(optionId: String, isSelected: Boolean, score: Int) {
-        question = Question(
+        val question = Question(
             id = "Q1",
             text = "",
             weight = 3
         )
+        val option = Option(id = optionId, score = score)
+        val newQuestion = Question(id = question.id, option = option, weight =  question.weight, score = (option.score!!.toDouble() / question.weight!!))
         if (isSelected) {
-            val option = Option(id = optionId, score = score)
-            val newQuestion = Question(id = question.id, option = option,  score = (option.score!!.toDouble() / question.weight!!))
-            Log.d("***NewQuestion", "Option selected: ${question.option}. Question is now: $newQuestion")
             questions.add(newQuestion)
+        }else{
+            questions.remove(newQuestion)
         }
     }
 }

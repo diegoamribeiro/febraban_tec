@@ -10,14 +10,21 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.cap.techsurvey.R
 import com.cap.techsurvey.databinding.FragmentQuestionThreeBinding
+import com.cap.techsurvey.entities.Option
+import com.cap.techsurvey.entities.Question
+import com.cap.techsurvey.entities.Survey
+import com.cap.techsurvey.services.SurveyProvider
 import com.cap.techsurvey.utils.viewBinding
 
 
 class QuestionThreeFragment : Fragment() {
 
-    private val args: QuestionThreeFragmentArgs by navArgs()
-
     private val binding: FragmentQuestionThreeBinding by viewBinding()
+    private val args: QuestionThreeFragmentArgs by navArgs()
+    private lateinit var survey: Survey
+    private val questions = mutableListOf<Question>()
+    private val provider = SurveyProvider()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,18 +35,104 @@ class QuestionThreeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        questions.clear()
         Log.d("***Three", args.currentSurvey.toString())
         setListeners()
     }
 
     private fun setListeners() {
+        // Question A
+        binding.radioOptionOneA.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelectionOne("EQ1", isChecked, 1)
+        }
+        binding.radioOptionTwoA.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelectionOne("EQ2", isChecked, 2)
+        }
+        binding.radioOptionThreeA.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelectionOne("EQ3", isChecked, 3)
+        }
+        binding.radioOptionFourA.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelectionOne("EQ4", isChecked, 4)
+        }
+        binding.radioOptionFiveA.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelectionOne("EQ5", isChecked, 5)
+        }
+        binding.radioOptionSixA.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelectionOne("EQ6", isChecked, 0)
+        }
+
+        // Question B
+
+        binding.radioOptionOneB.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelectionTwo("EQ1", isChecked, 1)
+        }
+        binding.radioOptionTwoB.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelectionTwo("EQ2", isChecked, 2)
+        }
+        binding.radioOptionThreeB.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelectionTwo("EQ3", isChecked, 3)
+        }
+        binding.radioOptionFourB.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelectionTwo("EQ4", isChecked, 4)
+        }
+        binding.radioOptionFiveB.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelectionTwo("EQ5", isChecked, 5)
+        }
+        binding.radioOptionSixB.setOnCheckedChangeListener { _, isChecked ->
+            manageOptionSelectionTwo("EQ6", isChecked, 0)
+        }
+
+        questions.addAll(args.currentSurvey.questions!!)
+        survey = Survey(
+            id = args.currentSurvey.id,
+            user = args.currentSurvey.user,
+            questions = questions,
+            url = null
+        )
+
         binding.btNext.setOnClickListener {
-            val action = QuestionThreeFragmentDirections.actionNavQuestionThreeToNavQuestionFour(args.currentSurvey)
-            NavHostFragment.findNavController(this).navigate(action)
+            provider.update(survey).addOnSuccessListener {
+                Log.d("***FirebaseThree", "DocumentSnapshot updated with ID: ${survey.id}")
+                val action = QuestionThreeFragmentDirections.actionNavQuestionThreeToNavQuestionFour(survey)
+                NavHostFragment.findNavController(this).navigate(action)
+            }.addOnFailureListener { e ->
+                Log.w("***Firebase", "Error updating document", e)
+            }
+
         }
 
         binding.btBack.setOnClickListener {
             NavHostFragment.findNavController(this).navigateUp()
+        }
+    }
+
+    private fun manageOptionSelectionOne(optionId: String, isSelected: Boolean, score: Int) {
+        val question = Question(
+            id = "Q3_1",
+            text = "",
+            weight = 5
+        )
+        val option = Option(id = optionId, score = score)
+        val newQuestion = Question(id = question.id, option = option, weight =  question.weight, score = (option.score!!.toDouble() / question.weight!!))
+        if (isSelected) {
+            questions.add(newQuestion)
+        }else{
+            questions.remove(newQuestion)
+        }
+    }
+
+    private fun manageOptionSelectionTwo(optionId: String, isSelected: Boolean, score: Int) {
+        val question = Question(
+            id = "Q3_2",
+            text = "",
+            weight = 5
+        )
+        val option = Option(id = optionId, score = score)
+        val newQuestion = Question(id = question.id, option = option, weight =  question.weight, score = (option.score!!.toDouble() / question.weight!!))
+        if (isSelected) {
+            questions.add(newQuestion)
+        }else{
+            questions.remove(newQuestion)
         }
     }
 

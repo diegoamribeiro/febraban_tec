@@ -22,7 +22,6 @@ class QuestionTwoFragment : Fragment() {
     private val binding: FragmentQuestionTwoBinding by viewBinding()
     private val args: QuestionTwoFragmentArgs by navArgs()
     private lateinit var survey: Survey
-    private lateinit var question: Question
     private val questions = mutableListOf<Question>()
     private val provider = SurveyProvider()
 
@@ -36,19 +35,7 @@ class QuestionTwoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("***Two", args.currentSurvey.toString())
-        question = Question(
-            id = "Q2",
-            text = "",
-            weight = 5
-        )
-        questions.addAll(args.currentSurvey.questions!!)
-
-        survey = Survey(
-            id = args.currentSurvey.id,
-            user = args.currentSurvey.user,
-            questions = questions,
-            url = null
-        )
+        questions.clear()
         setListeners()
     }
 
@@ -75,6 +62,13 @@ class QuestionTwoFragment : Fragment() {
         binding.radioButton7.setOnCheckedChangeListener { _, isChecked ->
             manageOptionSelection("GE6", isChecked, 0)
         }
+        questions.addAll(args.currentSurvey.questions!!)
+        survey = Survey(
+            id = args.currentSurvey.id,
+            user = args.currentSurvey.user,
+            questions = questions,
+            url = null
+        )
 
         binding.btNext.setOnClickListener {
             provider.update(survey).addOnSuccessListener {
@@ -84,7 +78,6 @@ class QuestionTwoFragment : Fragment() {
             }.addOnFailureListener { e ->
                 Log.w("***Firebase", "Error updating document", e)
             }
-
         }
 
         binding.btBack.setOnClickListener {
@@ -93,20 +86,17 @@ class QuestionTwoFragment : Fragment() {
     }
 
     private fun manageOptionSelection(optionId: String, isSelected: Boolean, score: Int) {
-        val option = Option(
-            id = optionId,
+        val question = Question(
+            id = "Q2",
             text = "",
-            answer = null,
-            isSelected = isSelected,
-            score = score
+            weight = 5
         )
+        val option = Option(id = optionId, score = score)
+        val newQuestion = Question(id = question.id, option = option, weight =  question.weight, score = (option.score!!.toDouble() / question.weight!!))
         if (isSelected) {
-            question.option = option
-            question.score = (score.toDouble() / question.weight!!)
-            questions.add(question)
-            survey = survey.copy(questions = questions)
+            questions.add(newQuestion)
+        }else{
+            questions.remove(newQuestion)
         }
     }
-
-
 }
