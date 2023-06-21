@@ -88,11 +88,11 @@ class QuestionTwoFragment : Fragment() {
     private fun manageOptionSelection(optionId: String, isSelected: Boolean, score: Int) {
         val question = Question(
             id = "Q2",
-            text = "",
+            size = 5,
             weight = 5
         )
         val option = Option(id = optionId, score = score)
-        val newQuestion = Question(id = question.id, option = option, weight =  question.weight, score = (option.score!!.toDouble() / question.weight!!))
+        val newQuestion = Question(id = question.id, option = option, weight =  question.weight, size = question.size, score = (option.score!!.toDouble() / question.size))
         if (isSelected) {
             questions.add(newQuestion)
         }else{

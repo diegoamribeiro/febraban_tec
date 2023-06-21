@@ -47,6 +47,8 @@
             android:layout_marginTop="100dp"
             android:text="@string/label_ask_company_name"
             android:textSize="38sp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_lets_go"
+            app:layout_constraintStart_toStartOf="@+id/tv_lets_go"
             app:layout_constraintTop_toBottomOf="@id/tv_lets_go" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -56,6 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:hint="@string/hint_company_name"
+            app:layout_constraintEnd_toEndOf="@+id/tv_ask"
+            app:layout_constraintStart_toStartOf="@+id/tv_ask"
             app:layout_constraintTop_toBottomOf="@id/tv_ask">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -63,7 +67,7 @@
                 style="@style/CustomEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"/>
+                android:inputType="textCapWords" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,6 +79,8 @@
             android:layout_marginTop="50dp"
             android:text="@string/label_ask_role"
             android:textSize="38sp"
+            app:layout_constraintEnd_toEndOf="@+id/il_company"
+            app:layout_constraintStart_toStartOf="@+id/il_company"
             app:layout_constraintTop_toBottomOf="@id/il_company" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -127,11 +133,11 @@
             android:id="@+id/iv_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginTop="32dp"
             android:src="@drawable/cap_logo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bt_next"
@@ -139,15 +145,13 @@
             android:layout_width="140dp"
             android:layout_height="50dp"
             android:layout_marginHorizontal="100dp"
-            android:layout_marginTop="180dp"
+            android:layout_marginBottom="100dp"
             android:fontFamily="@font/ubuntu_light"
             android:text="@string/next"
             android:textAllCaps="false"
             android:textSize="27sp"
-            app:layout_constraintBottom_toTopOf="@+id/iv_logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="50dp"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bt_back"
@@ -155,13 +159,13 @@
             android:layout_width="140dp"
             android:layout_height="50dp"
             android:layout_marginHorizontal="100dp"
+            android:layout_marginBottom="100dp"
             android:fontFamily="@font/ubuntu_light"
             android:text="@string/previous"
             android:textAllCaps="false"
             android:textSize="27sp"
-            app:layout_constraintBottom_toTopOf="@+id/iv_logo"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="50dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

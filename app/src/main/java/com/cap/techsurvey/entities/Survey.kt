@@ -11,16 +11,14 @@ data class Survey(
 
 data class Question(
     val id: String? = null,
-    val text: String? = null,
     var option: Option? = null,
+    var size: Int,
     val weight: Int? = null,
     var score: Double? = null
 ) : Serializable
 
 data class Option(
     val id: String? = null,
-    val text: String? = null,
-    val answer: String? = null,
     var isSelected: Boolean = false,
     val score: Int? = null
 ) : Serializable

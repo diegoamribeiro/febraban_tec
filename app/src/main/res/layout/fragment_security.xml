@@ -21,11 +21,11 @@
         android:id="@+id/iv_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
         android:src="@drawable/cap_logo"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="50dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_meet"
@@ -90,11 +90,11 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="100dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="150dp"
         android:fontFamily="@font/ubuntu_light"
         android:text="@string/label_refuse_proceed"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/iv_logo"
-        android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_mask"
         app:layout_constraintTop_toBottomOf="@id/tv_security_therms"
         tools:layout_editor_absoluteX="100dp" />
 
