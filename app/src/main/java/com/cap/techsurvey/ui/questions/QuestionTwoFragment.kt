@@ -89,7 +89,7 @@ class QuestionTwoFragment : Fragment() {
         val question = Question(
             id = "Q2",
             size = 5,
-            weight = 5
+            weight = 2
         )
         val option = Option(id = optionId, score = score)
         val newQuestion = Question(id = question.id, option = option, weight =  question.weight, size = question.size, score = (option.score!!.toDouble() / question.size))

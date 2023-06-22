@@ -100,6 +100,10 @@ dependencies {
     //implementation 'com.itextpdf:pdftest:7.1.16'
     implementation 'com.itextpdf:layout:7.1.16'
 
+    // Progress Dotted
+    //implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4'
+
+
     //JavaMail
 //    implementation 'com.sun.mail:android-mail:1.6.5'
 //    implementation 'com.sun.mail:android-activation:1.6.5'
