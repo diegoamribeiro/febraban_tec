@@ -218,6 +218,10 @@
         android:id="@+id/nav_report"
         android:name="com.cap.techsurvey.ui.questions.QuestionReportFragment"
         android:label="fragment_question_report"
-        tools:layout="@layout/fragment_question_report" />
+        tools:layout="@layout/fragment_question_report" >
+        <argument
+            android:name="currentSurvey"
+            app:argType="com.cap.techsurvey.entities.Survey" />
+    </fragment>
 
 </navigation>

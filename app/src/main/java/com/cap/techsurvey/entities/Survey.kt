@@ -6,7 +6,8 @@ data class Survey(
     var id: String,
     val user: User,
     val questions: List<Question>? = null,
-    val url: String? = null
+    val url: String? = null,
+    val result: Double? = null
 ) : Serializable
 
 data class Question(
