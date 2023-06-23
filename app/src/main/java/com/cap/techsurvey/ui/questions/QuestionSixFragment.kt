@@ -105,7 +105,7 @@ class QuestionSixFragment : Fragment() {
 
     private fun manageOptionSelectionOne(optionId: String, isSelected: Boolean, score: Int) {
         val question = Question(
-            id = "Q5_1",
+            id = "Q6_1",
             size = 5,
             weight = 1
         )
@@ -120,7 +120,7 @@ class QuestionSixFragment : Fragment() {
 
     private fun manageOptionSelectionTwo(optionId: String, isSelected: Boolean, score: Int) {
         val question = Question(
-            id = "Q5_2",
+            id = "Q6_2",
             size = 5,
             weight = 1
         )

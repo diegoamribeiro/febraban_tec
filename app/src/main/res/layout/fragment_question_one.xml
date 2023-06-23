@@ -106,4 +106,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/progress_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/cian_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_next"
+        app:layout_constraintEnd_toEndOf="@+id/bt_next"
+        app:layout_constraintStart_toStartOf="@+id/bt_next"
+        app:layout_constraintTop_toTopOf="@+id/bt_next"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,9 @@ import com.cap.techsurvey.entities.Option
 import com.cap.techsurvey.entities.Question
 import com.cap.techsurvey.entities.Survey
 import com.cap.techsurvey.services.SurveyProvider
+import com.cap.techsurvey.utils.Utils.gone
+import com.cap.techsurvey.utils.Utils.invisible
+import com.cap.techsurvey.utils.Utils.visible
 import com.cap.techsurvey.utils.viewBinding
 
 
@@ -35,6 +38,8 @@ class QuestionOneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.progressNext.gone()
+        binding.btNext.invisible()
         questions.clear()
         setListeners()
     }
@@ -43,15 +48,17 @@ class QuestionOneFragment : Fragment() {
 
         binding.radioButton1.setOnCheckedChangeListener { _, isChecked ->
             manageOptionSelection("EQ1", isChecked, 3)
+            binding.btNext.visible()
         }
 
         binding.radioButton2.setOnCheckedChangeListener { _, isChecked ->
             manageOptionSelection("EQ2", isChecked, 2)
+            binding.btNext.visible()
         }
 
         binding.radioButton3.setOnCheckedChangeListener { _, isChecked ->
-
             manageOptionSelection("EQ3", isChecked, 1)
+            binding.btNext.visible()
         }
 
         survey = Survey(
@@ -62,13 +69,17 @@ class QuestionOneFragment : Fragment() {
         )
 
         binding.btNext.setOnClickListener {
-            provider.update(survey).addOnSuccessListener {
-                Log.d("***Firebase", "DocumentSnapshot updated with ID: ${survey.id}")
-                val action = QuestionOneFragmentDirections.actionNavQuestionOneToNavQuestionTwo(survey)
-                NavHostFragment.findNavController(this).navigate(action)
-            }.addOnFailureListener { e ->
-                Log.w("***Firebase", "Error updating document", e)
-            }
+            binding.progressNext.visible()
+            binding.btNext.invisible()
+                provider.update(survey).addOnSuccessListener {
+                    binding.progressNext.gone()
+                    binding.btNext.visible()
+                    Log.d("***Firebase", "DocumentSnapshot updated with ID: ${survey.id}")
+                    val action = QuestionOneFragmentDirections.actionNavQuestionOneToNavQuestionTwo(survey)
+                    NavHostFragment.findNavController(this).navigate(action)
+                }.addOnFailureListener { e ->
+                    Log.w("***Firebase", "Error updating document", e)
+                }
         }
 
         binding.btBack.setOnClickListener {
@@ -89,5 +100,10 @@ class QuestionOneFragment : Fragment() {
         }else{
             questions.remove(newQuestion)
         }
+    }
+
+    private fun isAnyRadioButtonChecked(): Boolean {
+        val radioGroup = binding.rgQuestionOne
+        return radioGroup.checkedRadioButtonId != -1
     }
 }

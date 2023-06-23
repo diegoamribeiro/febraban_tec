@@ -12,6 +12,9 @@ import com.cap.techsurvey.databinding.FragmentAlreadyBinding
 import com.cap.techsurvey.entities.Survey
 import com.cap.techsurvey.services.SurveyProvider
 import com.cap.techsurvey.ui.questions.QuestionOneFragmentDirections
+import com.cap.techsurvey.utils.Utils.gone
+import com.cap.techsurvey.utils.Utils.invisible
+import com.cap.techsurvey.utils.Utils.visible
 import com.cap.techsurvey.utils.viewBinding
 
 
@@ -30,15 +33,23 @@ class AlreadyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.progressNext.gone()
+
         val survey = Survey("", args.currentUser)
         binding.btStart.setOnClickListener {
+            binding.progressNext.visible()
+            binding.btStart.invisible()
             provider.create(survey).addOnSuccessListener { documentReference ->
+                binding.btStart.visible()
+                binding.progressNext.gone()
                 Log.d("***Firebase", "DocumentSnapshot written with ID: ${documentReference.id}")
                 Log.d("***FirebaseSurvey", survey.toString())
                 val newSurvey = survey.copy(id = documentReference.id)
                 val action = AlreadyFragmentDirections.actionNavAlreadyToNavQuestionOne(newSurvey)
                 NavHostFragment.findNavController(this).navigate(action)
             }.addOnFailureListener { e ->
+                binding.btStart.visible()
+                binding.progressNext.gone()
                 Log.w("***Firebase", "Error adding document", e)
             }
         }

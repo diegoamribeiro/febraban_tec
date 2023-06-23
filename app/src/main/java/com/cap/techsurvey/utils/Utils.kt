@@ -15,6 +15,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
 
 import dagger.hilt.android.internal.Contexts
@@ -74,7 +75,9 @@ object Utils {
         val pattern = Pattern.compile(emailPattern)
         val matcher = pattern.matcher(email)
 
-        val bannedDomains = listOf("gmail.com", "yahoo.com", "uol.com.br", "bol.com.br", "outlook.com", "hotmail.com")
+        val bannedDomains = listOf(
+            //"gmail.com",
+            "yahoo.com", "uol.com.br", "bol.com.br", "outlook.com", "hotmail.com")
 
         val domain = email.substringAfterLast("@")
 
@@ -126,6 +129,20 @@ object Utils {
             }
         }
         return false
+    }
+
+    fun View.visible(){
+        this.visibility = View.VISIBLE
+    }
+
+    fun View.gone(){
+        this.visibility = View.GONE
+    }
+
+    fun View.invisible(){
+        this.visibility = View.INVISIBLE
+        this.isClickable = false
+        this.isActivated = false
     }
 
 //    fun generateQRCode(text: String, imageView: ImageView) {

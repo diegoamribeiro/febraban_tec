@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
-import com.cap.techsurvey.R
 import com.cap.techsurvey.databinding.FragmentQuestionSevenBinding
 import com.cap.techsurvey.entities.Option
 import com.cap.techsurvey.entities.Question
@@ -24,6 +23,7 @@ class QuestionSevenFragment : Fragment() {
     private lateinit var survey: Survey
     private val questions = mutableListOf<Question>()
     private val provider = SurveyProvider()
+    private var totalScore = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,10 +32,14 @@ class QuestionSevenFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         questions.clear()
+        survey = Survey(
+            id = args.currentSurvey.id,
+            user = args.currentSurvey.user
+        )
+
         Log.d("***Seven", args.currentSurvey.toString())
         setListeners()
     }
@@ -179,15 +183,14 @@ class QuestionSevenFragment : Fragment() {
             manageOptionSelectionSix("EQ_7", isChecked, 0)
         }
 
-
         questions.addAll(args.currentSurvey.questions!!)
-        survey = Survey(
-            id = args.currentSurvey.id,
-            user = args.currentSurvey.user,
-            questions = questions,
-            url = null
-        )
+
         binding.btNext.setOnClickListener {
+            // Calculate total score after all questions have been added
+            calculateScore()
+            survey.questions = questions
+            survey.result = totalScore
+            survey.url = null
             provider.update(survey).addOnSuccessListener {
                 Log.d("***FirebaseSeven", "DocumentSnapshot updated with ID: ${survey.id}")
                 val action = QuestionSevenFragmentDirections.actionNavQuestionSevenToNavReport(survey)
@@ -197,15 +200,11 @@ class QuestionSevenFragment : Fragment() {
                 Log.w("***Firebase", "Error updating document", e)
             }
         }
-
-        binding.btBack.setOnClickListener {
-            NavHostFragment.findNavController(this).navigateUp()
-        }
     }
 
     private fun manageOptionSelectionOne(optionId: String, isSelected: Boolean, score: Int) {
         val question = Question(
-            id = "Q6_1",
+            id = "Q7_1",
             size = 5,
             weight = 3
         )
@@ -220,7 +219,7 @@ class QuestionSevenFragment : Fragment() {
 
     private fun manageOptionSelectionTwo(optionId: String, isSelected: Boolean, score: Int) {
         val question = Question(
-            id = "Q6_2",
+            id = "Q7_2",
             size = 5,
             weight = 3
         )
@@ -235,7 +234,7 @@ class QuestionSevenFragment : Fragment() {
 
     private fun manageOptionSelectionThree(optionId: String, isSelected: Boolean, score: Int) {
         val question = Question(
-            id = "Q6_3",
+            id = "Q7_3",
             size = 5,
             weight = 3
         )
@@ -250,7 +249,7 @@ class QuestionSevenFragment : Fragment() {
 
     private fun manageOptionSelectionFour(optionId: String, isSelected: Boolean, score: Int) {
         val question = Question(
-            id = "Q6_4",
+            id = "Q7_4",
             size = 5,
             weight = 3
         )
@@ -265,7 +264,7 @@ class QuestionSevenFragment : Fragment() {
 
     private fun manageOptionSelectionFive(optionId: String, isSelected: Boolean, score: Int) {
         val question = Question(
-            id = "Q6_5",
+            id = "Q7_5",
             size = 5,
             weight = 3
         )
@@ -280,7 +279,7 @@ class QuestionSevenFragment : Fragment() {
 
     private fun manageOptionSelectionSix(optionId: String, isSelected: Boolean, score: Int) {
         val question = Question(
-            id = "Q6_6",
+            id = "Q7_6",
             size = 5,
             weight = 3
         )
@@ -291,5 +290,39 @@ class QuestionSevenFragment : Fragment() {
         }else{
             questions.remove(newQuestion)
         }
+    }
+
+    private fun calculateScore() {
+        val score1 = args.currentSurvey.questions?.get(0)?.score
+        val score2 = args.currentSurvey.questions?.get(1)?.score
+        val score3 = args.currentSurvey.questions?.get(2)?.score
+        val score4 = args.currentSurvey.questions?.get(3)?.score
+        val score5 = args.currentSurvey.questions?.get(4)?.score
+        val score6 = args.currentSurvey.questions?.get(5)?.score
+        val score7 = args.currentSurvey.questions?.get(6)?.score
+        val score8 = args.currentSurvey.questions?.get(7)?.score
+        val score9 = questions[0].score
+        val score10 = questions[1].score
+        val score11 = questions[2].score
+        val score12 = questions[3].score
+        val score13 = questions[4].score
+        val score14 = questions[5].score
+
+        totalScore = ((score1?.times(2) ?: 0.0) +
+                (score2?.times(2) ?: 0.0) +
+                (score3 ?: 0.0) +
+                (score4 ?: 0.0) +
+                (score5 ?: 0.0) +
+                (score6?.times(2) ?: 0.0) +
+                (score7 ?: 0.0) +
+                (score8 ?: 0.0) +
+                ((score9 ?: 0.0) +
+                        (score10 ?: 0.0) +
+                        (score11 ?: 0.0) +
+                        (score12 ?: 0.0) +
+                        (score13 ?: 0.0) +
+                        (score14 ?: 0.0)).times(3)) / 2.9
+
+        Log.d("***TotalScore = ", totalScore.toString())
     }
 }

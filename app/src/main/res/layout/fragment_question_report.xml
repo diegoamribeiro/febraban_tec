@@ -32,14 +32,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="148dp"
-            android:text="Report"
+            android:text="Resultado"
             android:textAlignment="center"
-            android:textSize="40sp"
+            android:textSize="50sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.545"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:indicatorSize="400dp"
+            app:trackThickness="20dp"
+            android:max="1000"
+            app:indicatorColor="@color/cian_blue"
+            app:layout_constraintBottom_toTopOf="@+id/bt_next"
+            tools:progress="800"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_ask_one"
+            />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mtv_stats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="90sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:fontFamily="@font/ubuntu_light"
+            app:layout_constraintBottom_toBottomOf="@+id/progressResult"
+            app:layout_constraintEnd_toEndOf="@+id/progressResult"
+            app:layout_constraintStart_toStartOf="@+id/progressResult"
+            app:layout_constraintTop_toTopOf="@+id/progressResult"
+            tools:text="@string/text_result_stats" />
 
         <ImageView
             android:id="@+id/iv_logo"
@@ -59,25 +88,14 @@
             android:layout_marginHorizontal="100dp"
             android:layout_marginBottom="150dp"
             android:fontFamily="@font/ubuntu_light"
-            android:text="@string/next"
+            android:text="Finalizar"
             android:textAllCaps="false"
             android:textSize="27sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/bt_back"
-            style="@style/CustomOutlinedButtonStyle"
-            android:layout_width="140dp"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="100dp"
-            android:layout_marginBottom="150dp"
-            android:fontFamily="@font/ubuntu_light"
-            android:text="@string/previous"
-            android:textAllCaps="false"
-            android:textSize="27sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
