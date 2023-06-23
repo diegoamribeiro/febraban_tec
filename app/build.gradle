@@ -103,7 +103,7 @@ dependencies {
 
 
     // Progress Dotted
-    //implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4'
+    //implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.3'
 
 
     //JavaMail

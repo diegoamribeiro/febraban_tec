@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
@@ -61,7 +62,6 @@ class QuestionReportFragment : Fragment() {
 
     private val binding: FragmentQuestionReportBinding by viewBinding()
     private val args: QuestionReportFragmentArgs by navArgs()
-    private val animationDuration = 3000L
     private var totalScore = 0.0
     private lateinit var survey: Survey
 
@@ -76,31 +76,22 @@ class QuestionReportFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("***ReportSurvey", args.currentSurvey.toString())
-        Log.d("***ReportScore", args.currentSurvey.result.toString())
+        calculateScore()
         survey = Survey(
             id = args.currentSurvey.id,
-            user = args.currentSurvey.user
+            user = args.currentSurvey.user,
+            result = totalScore,
+            questions = args.currentSurvey.questions
         )
-        calculateScore()
-        setListeners()
         drawPdf()
-        setStatsValues(totalScore)
     }
 
-    private fun setListeners(){
-        binding.btNext.setOnClickListener {
-            NavHostFragment.findNavController(this).popBackStack(R.id.nav_onboard, false)
-        }
+    private fun goToFinish() {
+        val action = QuestionReportFragmentDirections.actionNavReportToNavFinish(survey)
+        NavHostFragment.findNavController(this).navigate(action)
     }
-
-    private fun setStatsValues(stat: Double) {
-        animateText(binding.mtvStats, stat)
-        setProgressValues(stat)
-    }
-
 
     private fun drawPdf() {
-        val survey = args.currentSurvey
 
         val timestamp: String = SimpleDateFormat("dd_MM_yyyy_HH-mm-ss", Locale.getDefault()).format(
             Date()
@@ -177,18 +168,19 @@ class QuestionReportFragment : Fragment() {
 
         pdfDoc.close()
 
-//        val storageRef = Firebase.storage.reference
-//        val pdfRef = storageRef.child("pdfs/$fileName")
-//
-//        pdfRef.putFile(Uri.fromFile(pdfFile)).addOnSuccessListener {
-//            pdfRef.downloadUrl.addOnSuccessListener { uri ->
-//                val url = uri.toString()
-//                survey.url = url
-//                updateSurvey(survey) //chamando a função para atualizar a survey
-//            }
-//        }.addOnFailureListener {
-//            // Handle any errors
-//        }
+        val storageRef = Firebase.storage.reference
+        val pdfRef = storageRef.child("pdfs/$fileName")
+
+        pdfRef.putFile(Uri.fromFile(pdfFile)).addOnSuccessListener {
+            pdfRef.downloadUrl.addOnSuccessListener { uri ->
+                val url = uri.toString()
+                survey.url = url
+                updateSurvey(survey) //chamando a função para atualizar a survey
+                goToFinish()
+            }
+        }.addOnFailureListener {
+            Toast.makeText(requireContext(), "Ocorreu um erro!", Toast.LENGTH_SHORT).show()
+        }
 
         lifecycleScope.launch(Dispatchers.IO) {
             configureEmail(
@@ -196,13 +188,13 @@ class QuestionReportFragment : Fragment() {
                 "RESULTADO DA PESQUISA",
                 pdfFile
             )
+            Log.d("***Email","Enviou e-mail para ${args.currentSurvey.user.email}")
         }
         //generateQRCode(survey.url!!, binding.ivQrcode)
     }
 
 
-
-
+    // Envia url do pdf pro firestore
     private fun updateSurvey(survey: Survey) {
         val surveyProvider = SurveyProvider()
         surveyProvider.update(survey).addOnSuccessListener {
@@ -255,32 +247,9 @@ class QuestionReportFragment : Fragment() {
 
             Transport.send(mimeMessage)
         } catch (e: MessagingException) {
+            Log.d("***EmailException", e.toString())
             e.printStackTrace()
         }
-    }
-
-
-    private fun animateText(mtv: MaterialTextView, statValue: Double) {
-        val animator = ValueAnimator.ofFloat(0f, statValue.toFloat())
-        animator.addUpdateListener { animation ->
-            val animatedFloat = animation.animatedValue as Float
-            val animatedValue = if (animatedFloat == 10f) {
-                animatedFloat.toInt().toString()
-            } else {
-                String.format("%.1f", animatedFloat)
-            }
-            mtv.text = getString(R.string.text_result_stats, animatedValue)
-        }
-        animator.duration = animationDuration
-        animator.start()
-    }
-    private fun setProgressValues(statValue: Double) {
-        val progressIndicator = binding.progressResult
-        val progress = statValue.toInt() * 100
-        val animator = ObjectAnimator.ofInt(progressIndicator, "progress", progress)
-        animator.duration = 3000
-        animator.interpolator = DecelerateInterpolator()
-        animator.start()
     }
 
     private fun calculateScore() {

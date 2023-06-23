@@ -36,6 +36,12 @@
         <item name="android:layout_marginEnd">100dp</item>
     </style>
 
+    <style name="CustomProgressBar" parent="android:Widget.ProgressBar">
+<!--        <item name="android:thickness">1dp</item>-->
+        <item name="trackThickness">1dp</item>
+        <item name="android:thickness">1dp</item>
+    </style>
+
     <style name="RadioButtonStyle" parent="Widget.Material3.CompoundButton.RadioButton">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:buttonTint">@drawable/custom_radio</item>

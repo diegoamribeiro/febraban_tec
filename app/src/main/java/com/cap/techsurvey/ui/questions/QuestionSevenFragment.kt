@@ -15,6 +15,7 @@ import com.cap.techsurvey.entities.Option
 import com.cap.techsurvey.entities.Question
 import com.cap.techsurvey.entities.Survey
 import com.cap.techsurvey.services.SurveyProvider
+import com.cap.techsurvey.utils.CircularDotsLoader
 import com.cap.techsurvey.utils.Utils.gone
 import com.cap.techsurvey.utils.Utils.invisible
 import com.cap.techsurvey.utils.Utils.visible
