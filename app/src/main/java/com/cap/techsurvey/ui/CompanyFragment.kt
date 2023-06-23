@@ -62,6 +62,12 @@ class CompanyFragment : Fragment() {
             }
         }
 
+        binding.etArea.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.ilArea.hint = ""
+            }
+        }
+
         binding.btBack.setOnClickListener {
             NavHostFragment.findNavController(this).navigateUp()
         }
