@@ -3,6 +3,7 @@ package com.cap.techsurvey.ui.questions
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
@@ -13,14 +14,21 @@ import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.cap.techsurvey.R
 import com.cap.techsurvey.databinding.FragmentQuestionReportBinding
+import com.cap.techsurvey.entities.Survey
+import com.cap.techsurvey.services.SurveyProvider
+import com.cap.techsurvey.utils.Utils.generateQRCode
 import com.cap.techsurvey.utils.viewBinding
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textview.MaterialTextView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.itextpdf.io.font.constants.StandardFonts
 import com.itextpdf.kernel.colors.ColorConstants
+import com.itextpdf.kernel.colors.DeviceRgb
 import com.itextpdf.kernel.font.PdfFontFactory
 import com.itextpdf.layout.Document
 import com.itextpdf.kernel.pdf.PdfDocument
@@ -45,6 +53,8 @@ import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeBodyPart
 import javax.mail.internet.MimeMessage
 import javax.mail.internet.MimeMultipart
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas
+
 
 
 class QuestionReportFragment : Fragment() {
@@ -62,15 +72,17 @@ class QuestionReportFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sendEmail()
-        Log.d("***Report", args.currentSurvey.result.toString())
+        drawPdf()
+        Log.d("***Report", args.currentSurvey.toString())
         //organizeData()
         setListeners()
         setStatsValues(args.currentSurvey.result!!)
     }
 
     private fun setListeners(){
-
+        binding.btNext.setOnClickListener {
+            NavHostFragment.findNavController(this).popBackStack(R.id.nav_onboard, false)
+        }
     }
 
     private fun setStatsValues(stat: Double) {
@@ -79,14 +91,7 @@ class QuestionReportFragment : Fragment() {
     }
 
 
-
     private fun drawPdf() {
-
-    }
-
-
-    private fun sendEmail() {
-
         val survey = args.currentSurvey
 
         val timestamp: String = SimpleDateFormat("dd_MM_yyyy_HH-mm-ss", Locale.getDefault()).format(
@@ -99,49 +104,83 @@ class QuestionReportFragment : Fragment() {
             fileName
         )
 
-        val writer = PdfWriter(pdfFile)
-        val pdfDocument = PdfDocument(writer)
-        val document = Document(pdfDocument)
+        val pdfDoc = PdfDocument(PdfWriter(pdfFile))
+        val page = pdfDoc.addNewPage()
+        val canvas = PdfCanvas(page)
 
         val boldFont = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)
         val normalFont = PdfFontFactory.createFont(StandardFonts.HELVETICA)
 
-        // Adicione os dados da pesquisa ao documento
-        document.add(Paragraph("Survey ID: ${survey.id}").setFont(normalFont).setFontSize(12f))
+        // Adding texts to PDF
+        canvas.beginText()
+        canvas.setFontAndSize(normalFont, 12f)
+        canvas.moveText(50.0, page.pageSize.height.toDouble() - 50)
+        canvas.showText("Survey ID: ${survey.id}")
+        canvas.endText()
 
-        val title = Paragraph("Name: ${survey.user.name}")
-            .setFont(boldFont)
-            .setFontSize(16f)
-            .setFontColor(ColorConstants.WHITE)
-            .setBackgroundColor(ColorConstants.BLUE)
-        document.add(title)
+        canvas.beginText()
+        canvas.setFontAndSize(boldFont, 16f)
+        canvas.moveText(50.0, page.pageSize.height.toDouble() - 70)
+        canvas.showText("Name: ${survey.user.name}")
+        canvas.endText()
 
-        document.add(Paragraph("Email: ${survey.user.email}").setFont(normalFont).setFontSize(12f))
-        document.add(
-            Paragraph("Company: ${survey.user.company}").setFont(normalFont).setFontSize(12f)
-        )
+        canvas.beginText()
+        canvas.setFontAndSize(normalFont, 12f)
+        canvas.moveText(50.0, page.pageSize.height.toDouble() - 90)
+        canvas.showText("Email: ${survey.user.email}")
+        canvas.endText()
 
-//        for (question in survey.questions!!) {
-//            document.add(Paragraph("Question ID: ${question.id}").setFont(normalFont).setFontSize(12f))
-//            // Para cada opção na questão...
-//            for (option in question.options) {
-//                val paragraph: Paragraph
-//                val darkGreen = DeviceRgb(0, 100, 0)
-//                paragraph = if (option.isSelected) {
-//                    Paragraph("Resposta: ${option.text}")
-//                        .setFont(boldFont)
-//                        .setFontSize(12f)
-//                        .setFontColor(darkGreen) // Texto em negrito e verde escuro
-//                } else {
-//                    Paragraph("Resposta: ${option.text}")
-//                        .setFont(normalFont)
-//                        .setFontSize(12f)
-//                }
-//                document.add(paragraph)
+        canvas.beginText()
+        canvas.setFontAndSize(normalFont, 12f)
+        canvas.moveText(50.0, page.pageSize.height.toDouble() - 110)
+        canvas.showText("Company: ${survey.user.company}")
+        canvas.endText()
+
+        canvas.beginText()
+        canvas.setFontAndSize(normalFont, 12f)
+        canvas.moveText(50.0, page.pageSize.height.toDouble() - 130)
+        canvas.showText("Phone: ${survey.user.phone}")
+        canvas.endText()
+
+        canvas.beginText()
+        canvas.setFontAndSize(normalFont, 12f)
+        canvas.moveText(50.0, page.pageSize.height.toDouble() - 150)
+        canvas.showText("Result: ${survey.result}")
+        canvas.endText()
+
+        // Draw the pie chart with the result
+        val result = survey.result ?: 0.0
+        val remain = 100.0 - result
+
+        val centerX = (page.pageSize.width / 2).toDouble()
+        val centerY = (page.pageSize.height / 2).toDouble()
+
+        // Draw the completed part
+        canvas.setFillColor(DeviceRgb(10, 31, 68))
+        canvas.arc(centerX - 100, centerY - 100, centerX + 100, centerY + 100, 0.0, (result * 3.6))
+        canvas.lineTo(centerX, centerY)
+        canvas.fill()
+
+        // Draw the remaining part
+        canvas.setFillColor(DeviceRgb(6, 17, 37))
+        canvas.arc(centerX - 100, centerY - 100, centerX + 100, centerY + 100, (result * 3.6), (remain * 3.6))
+        canvas.lineTo(centerX, centerY)
+        canvas.fill()
+
+        pdfDoc.close()
+
+//        val storageRef = Firebase.storage.reference
+//        val pdfRef = storageRef.child("pdfs/$fileName")
+//
+//        pdfRef.putFile(Uri.fromFile(pdfFile)).addOnSuccessListener {
+//            pdfRef.downloadUrl.addOnSuccessListener { uri ->
+//                val url = uri.toString()
+//                survey.url = url
+//                updateSurvey(survey) //chamando a função para atualizar a survey
 //            }
+//        }.addOnFailureListener {
+//            // Handle any errors
 //        }
-
-        document.close()
 
         lifecycleScope.launch(Dispatchers.IO) {
             configureEmail(
@@ -150,13 +189,21 @@ class QuestionReportFragment : Fragment() {
                 pdfFile
             )
         }
-
-
-        val url = "https://github.com/cjnhust/ebook_collection/blob/master/Kotlin%20in%20Action.pdf"
-        //generateQRCode(url, binding.ivCode)
-
-
+        //generateQRCode(survey.url!!, binding.ivQrcode)
     }
+
+
+
+
+    private fun updateSurvey(survey: Survey) {
+        val surveyProvider = SurveyProvider()
+        surveyProvider.update(survey).addOnSuccessListener {
+            Log.d("SurveyUpdate", "Survey updated successfully with new PDF URL")
+        }.addOnFailureListener { e ->
+            Log.w("SurveyUpdate", "Error updating document", e)
+        }
+    }
+
 
     private fun configureEmail(email: String, subject: String, file: File) {
         val properties = Properties()
@@ -228,10 +275,5 @@ class QuestionReportFragment : Fragment() {
         animator.start()
     }
 
-
-
-    private fun updateData(){
-
-    }
 
 }

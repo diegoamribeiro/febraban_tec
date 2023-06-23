@@ -17,6 +17,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.WriterException
+import com.google.zxing.qrcode.QRCodeWriter
 
 import dagger.hilt.android.internal.Contexts
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -145,23 +148,23 @@ object Utils {
         this.isActivated = false
     }
 
-//    fun generateQRCode(text: String, imageView: ImageView) {
-//        val writer = QRCodeWriter()
-//        try {
-//            val bitMatrix = writer.encode(text, BarcodeFormat.QR_CODE, 512, 512)
-//            val width = bitMatrix.width
-//            val height = bitMatrix.height
-//            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
-//            for (x in 0 until width) {
-//                for (y in 0 until height) {
-//                    bitmap.setPixel(x, y, if (bitMatrix[x, y]) BLACK else WHITE)
-//                }
-//            }
-//            imageView.setImageBitmap(bitmap)
-//        } catch (e: WriterException) {
-//            e.printStackTrace()
-//        }
-//    }
+    fun generateQRCode(text: String, imageView: ImageView) {
+        val writer = QRCodeWriter()
+        try {
+            val bitMatrix = writer.encode(text, BarcodeFormat.QR_CODE, 512, 512)
+            val width = bitMatrix.width
+            val height = bitMatrix.height
+            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+            for (x in 0 until width) {
+                for (y in 0 until height) {
+                    bitmap.setPixel(x, y, if (bitMatrix[x, y]) BLACK else WHITE)
+                }
+            }
+            imageView.setImageBitmap(bitmap)
+        } catch (e: WriterException) {
+            e.printStackTrace()
+        }
+    }
 
     fun hideStatusBar(window: Window){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

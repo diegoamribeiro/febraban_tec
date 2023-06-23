@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="50dp"
             android:text="@string/text_ask_seven"
             android:textSize="40sp"
             app:layout_constraintTop_toBottomOf="@id/iv_logo"
@@ -653,7 +653,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="100dp"
             android:src="@drawable/cap_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -686,6 +685,27 @@
             android:textSize="27sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+        <ProgressBar
+            android:id="@+id/progress_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/cian_blue"
+            app:layout_constraintBottom_toBottomOf="@+id/bt_next"
+            app:layout_constraintEnd_toEndOf="@+id/bt_next"
+            app:layout_constraintStart_toStartOf="@+id/bt_next"
+            app:layout_constraintTop_toTopOf="@+id/bt_next"
+            />
+
+        <ImageView
+            android:id="@+id/iv_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:padding="16dp"
+            android:src="@drawable/ic_reset"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_logo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

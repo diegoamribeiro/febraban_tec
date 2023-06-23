@@ -117,4 +117,15 @@
         app:layout_constraintTop_toTopOf="@+id/bt_next"
         />
 
+    <ImageView
+        android:id="@+id/iv_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:padding="16dp"
+        android:src="@drawable/ic_reset"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_logo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

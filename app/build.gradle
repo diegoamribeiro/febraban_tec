@@ -99,6 +99,8 @@ dependencies {
     //implementation 'com.itextpdf:pdfa:7.1.16'
     //implementation 'com.itextpdf:pdftest:7.1.16'
     implementation 'com.itextpdf:layout:7.1.16'
+    implementation 'com.google.zxing:core:3.4.1'
+
 
     // Progress Dotted
     //implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4'

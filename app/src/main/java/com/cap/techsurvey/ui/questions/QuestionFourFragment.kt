@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.cap.techsurvey.R
@@ -14,6 +15,9 @@ import com.cap.techsurvey.entities.Option
 import com.cap.techsurvey.entities.Question
 import com.cap.techsurvey.entities.Survey
 import com.cap.techsurvey.services.SurveyProvider
+import com.cap.techsurvey.utils.Utils.gone
+import com.cap.techsurvey.utils.Utils.invisible
+import com.cap.techsurvey.utils.Utils.visible
 import com.cap.techsurvey.utils.viewBinding
 
 
@@ -34,6 +38,8 @@ class QuestionFourFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.progressNext.gone()
+        binding.btNext.invisible()
         Log.d("***Four", args.currentSurvey.toString())
         questions.clear()
         setListeners()
@@ -43,15 +49,19 @@ class QuestionFourFragment : Fragment() {
 
         binding.radioButtonOne.setOnCheckedChangeListener { _, isChecked ->
             manageOptionSelection("EQ1", isChecked, 1)
+            binding.btNext.visible()
         }
         binding.radioButtonTwo.setOnCheckedChangeListener { _, isChecked ->
             manageOptionSelection("EQ2", isChecked, 0)
+            binding.btNext.visible()
         }
         binding.radioButtonThree.setOnCheckedChangeListener { _, isChecked ->
             manageOptionSelection("EQ3", isChecked, 0)
+            binding.btNext.visible()
         }
         binding.radioButtonFour.setOnCheckedChangeListener { _, isChecked ->
             manageOptionSelection("EQ4", isChecked, 0)
+            binding.btNext.visible()
         }
 
         questions.addAll(args.currentSurvey.questions!!)
@@ -63,16 +73,27 @@ class QuestionFourFragment : Fragment() {
         )
 
         binding.btNext.setOnClickListener {
+            binding.progressNext.visible()
+            binding.btNext.invisible()
             provider.update(survey).addOnSuccessListener {
+                binding.progressNext.gone()
+                binding.btNext.visible()
                 val action = QuestionFourFragmentDirections.actionNavQuestionFourToNavQuestionFive(survey)
                 NavHostFragment.findNavController(this).navigate(action)
             }.addOnFailureListener { e ->
+                binding.progressNext.gone()
+                binding.btNext.visible()
+                Toast.makeText(requireContext(), "Falha ao salvar dados!", Toast.LENGTH_SHORT).show()
                 Log.w("***Firebase", "Error updating document", e)
             }
         }
 
         binding.btBack.setOnClickListener {
             NavHostFragment.findNavController(this).navigateUp()
+        }
+
+        binding.ivReset.setOnClickListener {
+            NavHostFragment.findNavController(this).popBackStack(R.id.nav_onboard, false)
         }
     }
 

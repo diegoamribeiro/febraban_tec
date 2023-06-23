@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.cap.techsurvey.R
@@ -42,6 +43,7 @@ class QuestionOneFragment : Fragment() {
         binding.btNext.invisible()
         questions.clear()
         setListeners()
+
     }
 
     private fun setListeners() {
@@ -78,12 +80,19 @@ class QuestionOneFragment : Fragment() {
                     val action = QuestionOneFragmentDirections.actionNavQuestionOneToNavQuestionTwo(survey)
                     NavHostFragment.findNavController(this).navigate(action)
                 }.addOnFailureListener { e ->
+                    binding.progressNext.gone()
+                    binding.btNext.visible()
+                    Toast.makeText(requireContext(), "Falha ao salvar dados!", Toast.LENGTH_SHORT).show()
                     Log.w("***Firebase", "Error updating document", e)
                 }
         }
 
         binding.btBack.setOnClickListener {
             NavHostFragment.findNavController(this).navigateUp()
+        }
+
+        binding.ivReset.setOnClickListener {
+            NavHostFragment.findNavController(this).popBackStack(R.id.nav_onboard, false)
         }
     }
 
@@ -102,8 +111,4 @@ class QuestionOneFragment : Fragment() {
         }
     }
 
-    private fun isAnyRadioButtonChecked(): Boolean {
-        val radioGroup = binding.rgQuestionOne
-        return radioGroup.checkedRadioButtonId != -1
-    }
 }
