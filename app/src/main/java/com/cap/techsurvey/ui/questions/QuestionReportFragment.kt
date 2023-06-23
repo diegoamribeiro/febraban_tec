@@ -55,7 +55,12 @@ import javax.mail.internet.MimeBodyPart
 import javax.mail.internet.MimeMessage
 import javax.mail.internet.MimeMultipart
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas
-
+import com.itextpdf.text.BaseColor
+import com.itextpdf.text.Element
+import com.itextpdf.text.FontFactory
+import com.itextpdf.text.Phrase
+import com.itextpdf.text.pdf.ColumnText
+import com.itextpdf.text.pdf.PdfContentByte
 
 
 class QuestionReportFragment : Fragment() {
@@ -92,19 +97,15 @@ class QuestionReportFragment : Fragment() {
     }
 
     private fun drawPdf() {
-
-        val timestamp: String = SimpleDateFormat("dd_MM_yyyy_HH-mm-ss", Locale.getDefault()).format(
-            Date()
-        )
+        val timestamp: String = SimpleDateFormat("dd_MM_yyyy_HH-mm-ss", Locale.getDefault()).format(Date())
         val fileName = "${survey.user.company}_$timestamp.pdf"
+        val pdfFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName)
 
-        val pdfFile = File(
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-            fileName
-        )
-
-        val pdfDoc = PdfDocument(PdfWriter(pdfFile))
+        val pdfWriter = PdfWriter(pdfFile)
+        val pdfDoc = PdfDocument(pdfWriter)
+        val document = Document(pdfDoc)
         val page = pdfDoc.addNewPage()
+
         val canvas = PdfCanvas(page)
 
         val boldFont = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)
@@ -141,30 +142,41 @@ class QuestionReportFragment : Fragment() {
         canvas.showText("Phone: ${survey.user.phone}")
         canvas.endText()
 
-        canvas.beginText()
-        canvas.setFontAndSize(normalFont, 12f)
-        canvas.moveText(50.0, page.pageSize.height.toDouble() - 150)
-        canvas.showText("Result: ${survey.result}")
-        canvas.endText()
-
-        // Draw the pie chart with the result
-        val result = survey.result ?: 0.0
-        val remain = 100.0 - result
-
+        // Draw the doughnut chart with the result
+        val result = (survey.result ?: 0.0) * 36 // Convert to percentage and scale for degrees
         val centerX = (page.pageSize.width / 2).toDouble()
         val centerY = (page.pageSize.height / 2).toDouble()
 
-        // Draw the completed part
-        canvas.setFillColor(DeviceRgb(10, 31, 68))
-        canvas.arc(centerX - 100, centerY - 100, centerX + 100, centerY + 100, 0.0, (result * 3.6))
+        canvas.setFillColor(DeviceRgb(86, 189, 246)) // Using cian_blue color
+        canvas.arc(centerX - 100, centerY - 100, centerX + 100, centerY + 100, 0.0, result)
         canvas.lineTo(centerX, centerY)
         canvas.fill()
 
         // Draw the remaining part
-        canvas.setFillColor(DeviceRgb(6, 17, 37))
-        canvas.arc(centerX - 100, centerY - 100, centerX + 100, centerY + 100, (result * 3.6), (remain * 3.6))
+        canvas.setFillColor(DeviceRgb(6, 17, 37)) // Using component_bg color
+        canvas.arc(centerX - 100, centerY - 100, centerX + 100, centerY + 100, result, 360.0 - result)
         canvas.lineTo(centerX, centerY)
         canvas.fill()
+
+        // Draw the inner circle to create the "Doughnut" effect
+        canvas.setFillColor(DeviceRgb(255, 255, 255)) // Color.WHITE
+        canvas.circle(centerX, centerY, 70.0)
+        canvas.fill()
+
+        // Add the result text in the center of the doughnut
+        val formattedResult = if (survey.result!! > 9.9) {
+            Math.round(survey.result!!).toString()
+        } else {
+            "%.1f".format(survey.result)
+        }
+
+        val estimatedWidth = formattedResult.length * 30f / 2
+        canvas.beginText()
+        canvas.setFontAndSize(boldFont, 30f)
+        canvas.setColor(ColorConstants.BLACK, true)
+        canvas.moveText(centerX - estimatedWidth / 2 - 20, centerY - 40) // Ajustado aqui
+        canvas.showText( "$formattedResult/10")
+        canvas.endText()
 
         pdfDoc.close()
 
@@ -175,7 +187,7 @@ class QuestionReportFragment : Fragment() {
             pdfRef.downloadUrl.addOnSuccessListener { uri ->
                 val url = uri.toString()
                 survey.url = url
-                updateSurvey(survey) //chamando a função para atualizar a survey
+                updateSurvey(survey)
                 goToFinish()
             }
         }.addOnFailureListener {
@@ -190,9 +202,8 @@ class QuestionReportFragment : Fragment() {
             )
             Log.d("***Email","Enviou e-mail para ${args.currentSurvey.user.email}")
         }
-        //generateQRCode(survey.url!!, binding.ivQrcode)
-    }
 
+    }
 
     // Envia url do pdf pro firestore
     private fun updateSurvey(survey: Survey) {

@@ -208,7 +208,11 @@
             app:argType="com.cap.techsurvey.entities.Survey" />
         <action
             android:id="@+id/action_nav_question_seven_to_nav_report"
-            app:destination="@id/nav_report" />
+            app:destination="@id/nav_report"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/nav_report"
@@ -220,7 +224,11 @@
             app:argType="com.cap.techsurvey.entities.Survey" />
         <action
             android:id="@+id/action_nav_report_to_nav_finish"
-            app:destination="@id/nav_finish" />
+            app:destination="@id/nav_finish"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/nav_finish"

@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.cap.techsurvey.R
 import com.cap.techsurvey.databinding.FragmentFinishBinding
+import com.cap.techsurvey.utils.Utils.generateQRCode
 import com.cap.techsurvey.utils.viewBinding
 import com.google.android.material.textview.MaterialTextView
 
@@ -35,6 +36,7 @@ class FinishFragment : Fragment() {
         setStatsValues(args.currentSurvey.result!!)
         Log.d("***FinishUrl", args.currentSurvey.url.toString())
         Log.d("***FinishScore", args.currentSurvey.toString())
+        generateQRCode(args.currentSurvey.url!!, binding.ivQrcode)
     }
 
     private fun setStatsValues(stat: Double) {
