@@ -28,7 +28,6 @@ class QuestionSevenFragment : Fragment() {
     private lateinit var survey: Survey
     private val questions = mutableListOf<Question>()
     private val provider = SurveyProvider()
-    private var totalScore = 0.0
     private var groupOne = false
     private var groupTwo = false
     private var groupThree = false
@@ -47,13 +46,8 @@ class QuestionSevenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.progressNext.gone()
         binding.btNext.invisible()
-        survey = Survey(
-            id = args.currentSurvey.id,
-            user = args.currentSurvey.user
-        )
-
-        Log.d("***Seven", args.currentSurvey.toString())
         questions.clear()
+        Log.d("***Seven", args.currentSurvey.toString())
         setListeners()
     }
 
@@ -281,15 +275,17 @@ class QuestionSevenFragment : Fragment() {
         }
 
         questions.addAll(args.currentSurvey.questions!!)
+        survey = Survey(
+            id = args.currentSurvey.id,
+            user = args.currentSurvey.user,
+            questions = questions,
+            url = null
+        )
 
         binding.btNext.setOnClickListener {
             binding.progressNext.visible()
             binding.btNext.invisible()
             // Calculate total score after all questions have been added
-            calculateScore()
-            survey.questions = questions
-            survey.result = totalScore
-            survey.url = null
             provider.update(survey).addOnSuccessListener {
                 binding.progressNext.gone()
                 binding.btNext.visible()
@@ -403,39 +399,7 @@ class QuestionSevenFragment : Fragment() {
         }
     }
 
-    private fun calculateScore() {
-        val score1 = args.currentSurvey.questions?.get(0)?.score
-        val score2 = args.currentSurvey.questions?.get(1)?.score
-        val score3 = args.currentSurvey.questions?.get(2)?.score
-        val score4 = args.currentSurvey.questions?.get(3)?.score
-        val score5 = args.currentSurvey.questions?.get(4)?.score
-        val score6 = args.currentSurvey.questions?.get(5)?.score
-        val score7 = args.currentSurvey.questions?.get(6)?.score
-        val score8 = args.currentSurvey.questions?.get(7)?.score
-        val score9 = questions[0].score
-        val score10 = questions[1].score
-        val score11 = questions[2].score
-        val score12 = questions[3].score
-        val score13 = questions[4].score
-        val score14 = questions[5].score
 
-        totalScore = ((score1?.times(2) ?: 0.0) +
-                (score2?.times(2) ?: 0.0) +
-                (score3 ?: 0.0) +
-                (score4 ?: 0.0) +
-                (score5 ?: 0.0) +
-                (score6?.times(2) ?: 0.0) +
-                (score7 ?: 0.0) +
-                (score8 ?: 0.0) +
-                ((score9 ?: 0.0) +
-                        (score10 ?: 0.0) +
-                        (score11 ?: 0.0) +
-                        (score12 ?: 0.0) +
-                        (score13 ?: 0.0) +
-                        (score14 ?: 0.0)).times(3)) / 2.9
-
-        Log.d("***TotalScore = ", totalScore.toString())
-    }
 
     private fun isGroupsChecked() : Boolean {
         return groupOne && groupTwo && groupThree && groupFour && groupFive && groupSix
