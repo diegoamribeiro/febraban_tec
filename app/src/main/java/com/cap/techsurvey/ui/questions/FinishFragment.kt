@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.pdf.PdfDocument
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
@@ -20,15 +21,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.Button
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.cap.techsurvey.R
 import com.cap.techsurvey.databinding.FragmentFinishBinding
 import com.cap.techsurvey.entities.Survey
+import com.cap.techsurvey.services.SurveyProvider
 import com.cap.techsurvey.utils.Utils.visible
 import com.cap.techsurvey.utils.viewBinding
 import com.google.android.material.textview.MaterialTextView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -57,6 +62,9 @@ class FinishFragment : Fragment() {
     private val binding: FragmentFinishBinding by viewBinding()
     private val args: FinishFragmentArgs by navArgs()
     private val animationDuration = 3000L
+    private lateinit var survey: Survey
+    private lateinit var surveyProvider: SurveyProvider
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,13 +76,22 @@ class FinishFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setStatsValues(args.currentSurvey.result!!)
+        surveyProvider = SurveyProvider()
+
+        survey = Survey(
+            id = args.currentSurvey.id,
+            user = args.currentSurvey.user,
+            result = args.currentSurvey.result,
+            questions = args.currentSurvey.questions
+        )
+
         Log.d("***FinishUrl", args.currentSurvey.url.toString())
         Log.d("***FinishScore", args.currentSurvey.toString())
         //generateQRCode(args.currentSurvey.url!!, binding.ivQrcode)
 
         // Delay for a few seconds, then create the PDF
         Handler(Looper.getMainLooper()).postDelayed({
-            createPdfFromView(binding.root, args.currentSurvey)
+            createPdfFromView(binding.root, survey)
             binding.btNext.visible()
             binding.tvEmail.visible()
         },  5000)
@@ -160,14 +177,28 @@ class FinishFragment : Fragment() {
 
             pdfDoc.finishPage(page)
 
-            val sdf = SimpleDateFormat("ddMMyyyyhhmmss", Locale.getDefault())
-            val pdfName = "pdfDemo_${sdf.format(Date())}.pdf"
-            val outputPath = "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path}/$pdfName"
+            val sdf = SimpleDateFormat("dd_MM_yyyy_HH-mm-ss", Locale.getDefault())
+            val fileName = "${survey.user.company}_${sdf.format(Date())}.pdf"
+            val outputPath = "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path}/$fileName"
 
             try {
-                val filePath = File(outputPath)
-                pdfDoc.writeTo(FileOutputStream(filePath))
+                val pdfFile = File(outputPath)
+                pdfDoc.writeTo(FileOutputStream(pdfFile))
                 pdfDoc.close()
+
+                // Upload PDF to Firebase and update the survey
+                val storageRef = Firebase.storage.reference
+                val pdfRef = storageRef.child("pdfs/$fileName")
+
+                pdfRef.putFile(Uri.fromFile(pdfFile)).addOnSuccessListener {
+                    pdfRef.downloadUrl.addOnSuccessListener { uri ->
+                        val url = uri.toString()
+                        survey.url = url
+                        updateSurvey(survey)
+                    }
+                }.addOnFailureListener {
+                    Toast.makeText(requireContext(), "Ocorreu um erro!", Toast.LENGTH_SHORT).show()
+                }
 
                 // Email properties
                 val properties = Properties()
@@ -187,8 +218,8 @@ class FinishFragment : Fragment() {
                     mimeMessage.setFrom(InternetAddress("capgemini-febraban-survey@outlook.com"))
                     val emailAddresses = arrayOf(
                         survey.user.email,
-                        //"eduardo.baltazar@capgemini.com",
-                        )
+                        "eduardo.baltazar@capgemini.com",
+                    )
                     val recipients = emailAddresses.map { InternetAddress(it) }.toTypedArray()
                     mimeMessage.addRecipients(
                         Message.RecipientType.TO,
@@ -206,9 +237,9 @@ class FinishFragment : Fragment() {
 
                     // Part two is the attachment
                     val attachPart = MimeBodyPart()
-                    val source = FileDataSource(filePath)
+                    val source = FileDataSource(pdfFile)
                     attachPart.dataHandler = DataHandler(source)
-                    attachPart.fileName = filePath.name
+                    attachPart.fileName = pdfFile.name
                     multipart.addBodyPart(attachPart)
 
                     // Add the complete message parts to the message
@@ -226,6 +257,7 @@ class FinishFragment : Fragment() {
             }
         }
     }
+
 
 
 
@@ -275,6 +307,15 @@ class FinishFragment : Fragment() {
             e.printStackTrace()
         }
     }
+
+    private fun updateSurvey(survey: Survey) {
+        surveyProvider.update(survey).addOnSuccessListener {
+            Log.d("SurveyUpdate", "Survey updated successfully with new PDF URL")
+        }.addOnFailureListener { e ->
+            Log.w("SurveyUpdate", "Error updating document", e)
+        }
+    }
+
 
 
 }

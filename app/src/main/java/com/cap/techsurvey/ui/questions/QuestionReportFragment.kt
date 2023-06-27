@@ -3,6 +3,8 @@ package com.cap.techsurvey.ui.questions
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import com.cap.techsurvey.databinding.FragmentQuestionReportBinding
 import com.cap.techsurvey.entities.Survey
 import com.cap.techsurvey.services.SurveyProvider
+import com.cap.techsurvey.utils.Utils.visible
 import com.cap.techsurvey.utils.viewBinding
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -55,7 +58,11 @@ class QuestionReportFragment : Fragment() {
             result = totalScore,
             questions = args.currentSurvey.questions
         )
-        drawPdf()
+        Handler(Looper.getMainLooper()).postDelayed({
+            updateSurvey(survey)
+        },  3000)
+
+        //drawPdf()
     }
 
     private fun goToFinish() {
@@ -121,10 +128,10 @@ class QuestionReportFragment : Fragment() {
 
         pdfRef.putFile(Uri.fromFile(pdfFile)).addOnSuccessListener {
             pdfRef.downloadUrl.addOnSuccessListener { uri ->
-                val url = uri.toString()
-                survey.url = url
-                updateSurvey(survey)
-                goToFinish()
+                //val url = uri.toString()
+                //survey.url = url
+
+
             }
         }.addOnFailureListener {
             Toast.makeText(requireContext(), "Ocorreu um erro!", Toast.LENGTH_SHORT).show()
@@ -146,6 +153,7 @@ class QuestionReportFragment : Fragment() {
         val surveyProvider = SurveyProvider()
         surveyProvider.update(survey).addOnSuccessListener {
             Log.d("SurveyUpdate", "Survey updated successfully with new PDF URL")
+            goToFinish()
         }.addOnFailureListener { e ->
             Log.w("SurveyUpdate", "Error updating document", e)
         }
