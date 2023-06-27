@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Color.BLACK
 import android.graphics.Color.WHITE
 import android.graphics.Matrix
@@ -26,9 +27,13 @@ import com.google.zxing.qrcode.QRCodeWriter
 import android.graphics.pdf.PdfDocument
 import android.os.Environment
 import android.util.DisplayMetrics
+import android.util.Log
+import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.cap.techsurvey.R
+import com.cap.techsurvey.entities.Survey
 import dagger.hilt.android.internal.Contexts
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
@@ -37,7 +42,20 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.Properties
 import java.util.regex.Pattern
+import javax.activation.DataHandler
+import javax.activation.FileDataSource
+import javax.mail.Authenticator
+import javax.mail.Message
+import javax.mail.MessagingException
+import javax.mail.PasswordAuthentication
+import javax.mail.Session
+import javax.mail.Transport
+import javax.mail.internet.InternetAddress
+import javax.mail.internet.MimeBodyPart
+import javax.mail.internet.MimeMessage
+import javax.mail.internet.MimeMultipart
 
 
 object Utils {
@@ -93,7 +111,7 @@ object Utils {
         val matcher = pattern.matcher(email)
 
         val bannedDomains = listOf(
-            //"gmail.com",
+            "gmail.com",
             "yahoo.com", "uol.com.br", "bol.com.br", "outlook.com", "hotmail.com")
 
         val domain = email.substringAfterLast("@")
@@ -212,36 +230,7 @@ object Utils {
         return textMask
     }
 
-    fun createPdfFromView(view: View) {
-        view.post {
-            val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(bitmap)
-            view.draw(canvas)
 
-            val pdfDoc = PdfDocument()
-            val pageInfo = PdfDocument.PageInfo.Builder(view.width, view.height, 1).create()
-            val page = pdfDoc.startPage(pageInfo)
 
-            val canvasPdf = page.canvas
-            val paint = Paint()
-            val matrix = Matrix()
-
-            canvasPdf.drawBitmap(bitmap, matrix, paint)
-            pdfDoc.finishPage(page)
-
-            val sdf = SimpleDateFormat("ddMMyyyyhhmmss", Locale.getDefault())
-            val pdfName = "pdfDemo_${sdf.format(Date())}.pdf"
-            val outputPath = "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path}/$pdfName"
-
-            try {
-                val filePath = File(outputPath)
-                pdfDoc.writeTo(FileOutputStream(filePath))
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
-            pdfDoc.close()
-        }
-    }
 
 }

@@ -1,66 +1,33 @@
 package com.cap.techsurvey.ui.questions
 
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
-import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.DecelerateInterpolator
-import android.view.animation.LinearInterpolator
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
-import com.cap.techsurvey.R
 import com.cap.techsurvey.databinding.FragmentQuestionReportBinding
 import com.cap.techsurvey.entities.Survey
 import com.cap.techsurvey.services.SurveyProvider
-import com.cap.techsurvey.utils.Utils.generateQRCode
 import com.cap.techsurvey.utils.viewBinding
-import com.google.android.material.progressindicator.CircularProgressIndicator
-import com.google.android.material.textview.MaterialTextView
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.itextpdf.io.font.constants.StandardFonts
 import com.itextpdf.kernel.colors.ColorConstants
-import com.itextpdf.kernel.colors.DeviceRgb
 import com.itextpdf.kernel.font.PdfFontFactory
-import com.itextpdf.layout.Document
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
-import com.itextpdf.layout.element.Paragraph
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas
+import com.itextpdf.layout.Document
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import java.util.Properties
-import javax.activation.DataHandler
-import javax.activation.FileDataSource
-import javax.mail.Authenticator
-import javax.mail.Message
-import javax.mail.MessagingException
-import javax.mail.PasswordAuthentication
-import javax.mail.Session
-import javax.mail.Transport
-import javax.mail.internet.InternetAddress
-import javax.mail.internet.MimeBodyPart
-import javax.mail.internet.MimeMessage
-import javax.mail.internet.MimeMultipart
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas
-import com.itextpdf.text.BaseColor
-import com.itextpdf.text.Element
-import com.itextpdf.text.FontFactory
-import com.itextpdf.text.Phrase
-import com.itextpdf.text.pdf.ColumnText
-import com.itextpdf.text.pdf.PdfContentByte
 
 
 class QuestionReportFragment : Fragment() {
@@ -142,40 +109,9 @@ class QuestionReportFragment : Fragment() {
         canvas.showText("Phone: ${survey.user.phone}")
         canvas.endText()
 
-        // Draw the doughnut chart with the result
-        val result = (survey.result ?: 0.0) * 36 // Convert to percentage and scale for degrees
-        val centerX = (page.pageSize.width / 2).toDouble()
-        val centerY = (page.pageSize.height / 2).toDouble()
-
-        canvas.setFillColor(DeviceRgb(86, 189, 246)) // Using cian_blue color
-        canvas.arc(centerX - 100, centerY - 100, centerX + 100, centerY + 100, 0.0, result)
-        canvas.lineTo(centerX, centerY)
-        canvas.fill()
-
-        // Draw the remaining part
-        canvas.setFillColor(DeviceRgb(6, 17, 37)) // Using component_bg color
-        canvas.arc(centerX - 100, centerY - 100, centerX + 100, centerY + 100, result, 360.0 - result)
-        canvas.lineTo(centerX, centerY)
-        canvas.fill()
-
-        // Draw the inner circle to create the "Doughnut" effect
-        canvas.setFillColor(DeviceRgb(255, 255, 255)) // Color.WHITE
-        canvas.circle(centerX, centerY, 70.0)
-        canvas.fill()
-
-        // Add the result text in the center of the doughnut
-        val formattedResult = if (survey.result!! > 9.9) {
-            Math.round(survey.result!!).toString()
-        } else {
-            "%.1f".format(survey.result)
-        }
-
-        val estimatedWidth = formattedResult.length * 30f / 2
         canvas.beginText()
         canvas.setFontAndSize(boldFont, 30f)
         canvas.setColor(ColorConstants.BLACK, true)
-        canvas.moveText(centerX - estimatedWidth / 2 - 20, centerY - 40) // Ajustado aqui
-        canvas.showText( "$formattedResult/10")
         canvas.endText()
 
         pdfDoc.close()
@@ -194,14 +130,14 @@ class QuestionReportFragment : Fragment() {
             Toast.makeText(requireContext(), "Ocorreu um erro!", Toast.LENGTH_SHORT).show()
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            configureEmail(
-                args.currentSurvey.user.email!!,
-                "RESULTADO DA PESQUISA",
-                pdfFile
-            )
-            Log.d("***Email","Enviou e-mail para ${args.currentSurvey.user.email}")
-        }
+//        lifecycleScope.launch(Dispatchers.IO) {
+//            configureEmail(
+//                args.currentSurvey.user.email!!,
+//                "RESULTADO DA PESQUISA",
+//                pdfFile
+//            )
+//            Log.d("***Email","Enviou e-mail para ${args.currentSurvey.user.email}")
+//        }
 
     }
 
@@ -212,54 +148,6 @@ class QuestionReportFragment : Fragment() {
             Log.d("SurveyUpdate", "Survey updated successfully with new PDF URL")
         }.addOnFailureListener { e ->
             Log.w("SurveyUpdate", "Error updating document", e)
-        }
-    }
-
-
-    private fun configureEmail(email: String, subject: String, file: File) {
-        val properties = Properties()
-        properties.put("mail.smtp.auth", "true")
-        properties.put("mail.smtp.starttls.enable", "true")
-        properties.put("mail.smtp.host", "smtp.office365.com")
-        properties.put("mail.smtp.port", "587")
-
-        val session = Session.getDefaultInstance(properties, object : Authenticator() {
-            override fun getPasswordAuthentication(): PasswordAuthentication {
-                return PasswordAuthentication("capgemini-febraban-survey@outlook.com", "TechSurvey@2023")
-            }
-        })
-
-        val mimeMessage = MimeMessage(session)
-        try {
-            mimeMessage.setFrom(InternetAddress("capgemini-febraban-survey@outlook.com"))
-            mimeMessage.addRecipients(
-                Message.RecipientType.TO,
-                InternetAddress(email).toString()
-            )
-            mimeMessage.subject = subject
-
-            // Create a multipart message
-            val multipart = MimeMultipart()
-
-            // Part one is the text message
-            val messageBodyPart = MimeBodyPart()
-            messageBodyPart.setText("Poor Message")
-            multipart.addBodyPart(messageBodyPart)
-
-            // Part two is the attachment
-            val attachPart = MimeBodyPart()
-            val source = FileDataSource(file)
-            attachPart.dataHandler = DataHandler(source)
-            attachPart.fileName = file.name
-            multipart.addBodyPart(attachPart)
-
-            // Add the complete message parts to the message
-            mimeMessage.setContent(multipart)
-
-            Transport.send(mimeMessage)
-        } catch (e: MessagingException) {
-            Log.d("***EmailException", e.toString())
-            e.printStackTrace()
         }
     }
 

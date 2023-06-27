@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.questions.FinishFragment"
-    android:background="@color/component_bg"
+    android:background="@drawable/bg_gradient"
     android:fillViewport="true"
     android:clipToPadding="false">
 
@@ -91,6 +91,7 @@
             android:text="Finalizar"
             android:textAllCaps="false"
             android:textSize="27sp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -200,6 +201,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="526dp" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            style="@style/TextStyleUbuntuLightCenteredWhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="O resultado será enviado para o seu e-mail!"
+            android:layout_marginBottom="16dp"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:layout_marginTop="42dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bt_next"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
