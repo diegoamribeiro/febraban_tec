@@ -76,6 +76,7 @@ class FinishFragment : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             createPdfFromView(binding.root, args.currentSurvey)
             binding.btNext.visible()
+            binding.tvEmail.visible()
         },  5000)
 
     }
@@ -184,7 +185,10 @@ class FinishFragment : Fragment() {
                 val mimeMessage = MimeMessage(session)
                 try {
                     mimeMessage.setFrom(InternetAddress("capgemini-febraban-survey@outlook.com"))
-                    val emailAddresses = arrayOf(survey.user.email, "eduardo_nerd@hotmail.com", "dinoknot@gmail.com")
+                    val emailAddresses = arrayOf(
+                        survey.user.email,
+                        //"eduardo.baltazar@capgemini.com",
+                        )
                     val recipients = emailAddresses.map { InternetAddress(it) }.toTypedArray()
                     mimeMessage.addRecipients(
                         Message.RecipientType.TO,
