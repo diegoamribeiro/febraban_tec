@@ -14,42 +14,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <TextView
             android:id="@+id/tv_ask_one"
             style="@style/TextStyleUbuntuLightCenteredWhite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="148dp"
-            android:text="Resultado"
+            android:text="@string/text_your_result"
             android:textAlignment="center"
-            android:textSize="50sp"
+            android:textSize="38sp"
+            android:layout_marginTop="42dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.545"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_logo"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:indicatorSize="400dp"
+            android:layout_marginTop="42dp"
+            app:indicatorSize="295dp"
             app:trackThickness="20dp"
             android:max="1000"
             app:indicatorColor="@color/cian_blue"
-            app:layout_constraintBottom_toTopOf="@+id/bt_next"
             tools:progress="800"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_ask_one"
             />
 
+        <TextView
+            android:id="@+id/tv_tip"
+            style="@style/TextStyleUbuntuLightCenteredWhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_report_tip"
+            android:textSize="30sp"
+            android:layout_marginTop="29dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressResult"
+            app:layout_constraintVertical_chainStyle="packed" />
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/mtv_stats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="90sp"
+            android:textSize="70sp"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:fontFamily="@font/ubuntu_light"
@@ -75,7 +86,7 @@
             android:layout_width="140dp"
             android:layout_height="50dp"
             android:layout_marginHorizontal="100dp"
-            android:layout_marginBottom="150dp"
+            android:layout_marginBottom="50dp"
             android:fontFamily="@font/ubuntu_light"
             android:text="Finalizar"
             android:textAllCaps="false"
@@ -85,14 +96,110 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_qrcode"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:layout_constraintBottom_toTopOf="@+id/bt_next"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progressResult"
-            android:layout_marginEnd="100dp"/>
+            android:id="@+id/iv_references"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/chart_reference"
+            app:layout_constraintStart_toStartOf="@+id/tv_tip"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tip" />
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_indicators"
+            android:layout_width="37dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:src="@drawable/chart_indicators"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_references"
+            app:layout_constraintStart_toEndOf="@id/iv_references"
+            app:layout_constraintTop_toTopOf="@+id/iv_references" />
+
+        <TextView
+            android:id="@+id/tv_index_one"
+            style="@style/TextStyleUbuntuLightCenteredWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Área ou pessoas dedicadas (70%)"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@id/iv_indicators" />
+
+        <TextView
+            android:id="@+id/tv_index_two"
+            style="@style/TextStyleUbuntuLightCenteredWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:text="Resultados obtidos (67%)"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_index_one" />
+
+        <TextView
+            android:id="@+id/tv_index_three"
+            style="@style/TextStyleUbuntuLightCenteredWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:text="Estágio das atividades (60%)"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_index_two" />
+
+        <TextView
+            android:id="@+id/tv_index_four"
+            style="@style/TextStyleUbuntuLightCenteredWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:text="Prioridade da empresa (54%)"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_index_three" />
+
+        <TextView
+            android:id="@+id/tv_index_five"
+            style="@style/TextStyleUbuntuLightCenteredWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:text="Metas de desempenho (53%)"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_index_four" />
+
+        <TextView
+            android:id="@+id/tv_index_six"
+            style="@style/TextStyleUbuntuLightCenteredWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:text="Comunicação para clientes e stakeholders (53%)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_index_five" />
+
+        <TextView
+            android:id="@+id/tv_index_seven"
+            style="@style/TextStyleUbuntuLightCenteredWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:text="Etapa de desenvolvimento (26%)"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_indicators"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_index_six" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="526dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

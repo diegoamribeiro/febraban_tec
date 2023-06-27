@@ -1,5 +1,6 @@
 package com.cap.techsurvey.ui
 
+import WebPageDialogFragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -31,6 +32,10 @@ class SecurityFragment : Fragment() {
         binding.btRefuse.setOnClickListener {
             NavHostFragment.findNavController(this).popBackStack()
         }
-    }
 
+        binding.tvSecurityTherms.setOnClickListener {
+            val dialog = WebPageDialogFragment()
+            dialog.show(childFragmentManager, "WebPageDialogFragment")
+        }
+    }
 }

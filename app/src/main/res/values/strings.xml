@@ -15,8 +15,8 @@
     <string name="label_qr_code_reading_instruction">Aponte a câmera para o código</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="label_welcome">OLÁ! \n\nFAÇA UM TESTE AGORA E DESCUBRA QUAL É O</string>
-    <string name="label_continue"><b>PERFIL DA SUA EMPRESA.</b></string>
+    <string name="label_welcome">OLÁ! \n\nFAÇA UM TESTE AGORA E DESCUBRA QUAL É O NÍVEL DE MATURIDADE DO OPEN FINANCE EM</string>
+    <string name="label_continue"><b>SUA EMPRESA.</b></string>
     <string name="begin_test">Iniciar Teste</string>
     <string name="label_accept_proceed">Eu aceito prosseguir</string>
     <string name="label_refuse_proceed">Eu não aceito prosseguir</string>
@@ -98,6 +98,8 @@
     <string name="text_multiple_options_seven">Não se aplica</string>
     <string name="text_privacy">Política de Privacidade</string>
     <string name="text_result_stats">%s/10</string>
+    <string name="text_report_tip">O índice de média do mercado das empresas que atuam em Open Finance é de 6,43. Veja o comparativo abaixo:</string>
+    <string name="text_your_result">Aqui está o resultado do seu teste!</string>
 
 
 </resources>

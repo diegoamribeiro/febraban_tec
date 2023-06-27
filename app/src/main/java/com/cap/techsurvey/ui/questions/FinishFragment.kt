@@ -3,6 +3,8 @@ package com.cap.techsurvey.ui.questions
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.cap.techsurvey.R
 import com.cap.techsurvey.databinding.FragmentFinishBinding
+import com.cap.techsurvey.utils.Utils.createPdfFromView
 import com.cap.techsurvey.utils.Utils.generateQRCode
 import com.cap.techsurvey.utils.viewBinding
 import com.google.android.material.textview.MaterialTextView
@@ -36,7 +39,12 @@ class FinishFragment : Fragment() {
         setStatsValues(args.currentSurvey.result!!)
         Log.d("***FinishUrl", args.currentSurvey.url.toString())
         Log.d("***FinishScore", args.currentSurvey.toString())
-        generateQRCode(args.currentSurvey.url!!, binding.ivQrcode)
+        //generateQRCode(args.currentSurvey.url!!, binding.ivQrcode)
+
+        // Delay for a few seconds, then create the PDF
+        Handler(Looper.getMainLooper()).postDelayed({
+            createPdfFromView(binding.root)
+        },  5000)
     }
 
     private fun setStatsValues(stat: Double) {
