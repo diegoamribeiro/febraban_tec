@@ -155,27 +155,31 @@ class FinishFragment : Fragment() {
                 textSize = 18f
             }
 
-            val textOffsetY = 200f // Increase offset for text to move it up
-            textPaint.textSize = 12f
+            var textOffsetY = 100f // Increase offset for text to move it up
+            textPaint.textSize = 22f
             canvasPdf.drawText("Survey ID: ${survey.id}", 50f, view.height - textOffsetY, textPaint)
-            canvasPdf.drawText("Name: ${survey.user.name}", 50f, view.height - textOffsetY - 20f, textPaint)
-            canvasPdf.drawText("Email: ${survey.user.email}", 50f, view.height - textOffsetY - 40f, textPaint)
-            canvasPdf.drawText("Company: ${survey.user.company}", 50f, view.height - textOffsetY - 60f, textPaint)
-            canvasPdf.drawText("Phone: ${survey.user.phone}", 50f, view.height - textOffsetY - 80f, textPaint)
+            canvasPdf.drawText("Name: ${survey.user.name}", 50f, view.height - (textOffsetY + 20f), textPaint)
+            canvasPdf.drawText("Email: ${survey.user.email}", 50f, view.height - (textOffsetY + 40f), textPaint)
+            canvasPdf.drawText("Company: ${survey.user.company}", 50f, view.height - (textOffsetY + 60f), textPaint)
+            canvasPdf.drawText("Phone: ${survey.user.phone}", 50f, view.height - (textOffsetY + 80f), textPaint)
 
-            // Add extra contact info
-            textPaint.textSize = 22f
+            textOffsetY += 50f // Adjust this value to change the space
+
             textPaint.isFakeBoldText = false
-            canvasPdf.drawText("jamile.leao@capgemini.com", 50f, view.height - textOffsetY - 120f, textPaint)
-            canvasPdf.drawText("Financial Services", 50f, view.height - textOffsetY - 140f, textPaint)
+            canvasPdf.drawText("jamile.leao@capgemini.com", 50f, view.height - (textOffsetY + 98f), textPaint)
+            canvasPdf.drawText("Financial Services", 50f, view.height - (textOffsetY + 117f), textPaint)
             textPaint.isFakeBoldText = true
-            textPaint.textSize = 22f
-            canvasPdf.drawText("Jamile Leão", 50f, view.height - textOffsetY - 160f, textPaint)
+            textPaint.textSize = 30f
+            canvasPdf.drawText("Jamile Leão", 50f, view.height - (textOffsetY + 138f), textPaint)
             textPaint.isFakeBoldText = false
-            textPaint.textSize = 22f
-            canvasPdf.drawText("Fale com uma especialista:", 50f, view.height - textOffsetY - 180f, textPaint)
+            textPaint.textSize = 30f
+            canvasPdf.drawText("Fale com uma especialista:", 50f, view.height - (textOffsetY + 165f), textPaint)
 
             pdfDoc.finishPage(page)
+
+
+
+
 
             val sdf = SimpleDateFormat("dd_MM_yyyy_HH-mm-ss", Locale.getDefault())
             val fileName = "${survey.user.company}_${sdf.format(Date())}.pdf"
@@ -288,7 +292,7 @@ class FinishFragment : Fragment() {
 
             // Part one is the text message
             val messageBodyPart = MimeBodyPart()
-            messageBodyPart.setText("Poor Message")
+            messageBodyPart.setText("Você recebeu seu resultado!")
             multipart.addBodyPart(messageBodyPart)
 
             // Part two is the attachment

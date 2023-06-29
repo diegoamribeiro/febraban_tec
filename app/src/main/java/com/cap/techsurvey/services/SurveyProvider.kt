@@ -3,6 +3,7 @@ package com.cap.techsurvey.services
 import com.cap.techsurvey.entities.Survey
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -21,5 +22,9 @@ class SurveyProvider {
 
     fun getNewDocumentReference(): DocumentReference {
         return db.document()
+    }
+
+    fun getAll(): Task<QuerySnapshot> {
+        return db.get()
     }
 }

@@ -249,7 +249,11 @@
     <fragment
         android:id="@+id/nav_thanks"
         android:name="com.cap.techsurvey.ui.questions.ThanksFragment"
-        android:label="ThanksFragment" />
+        android:label="ThanksFragment" >
+        <argument
+            android:name="finalSurvey"
+            app:argType="com.cap.techsurvey.entities.Survey" />
+    </fragment>
 
 
 </navigation>

@@ -3,8 +3,8 @@ package com.cap.techsurvey.entities
 import java.io.Serializable
 
 data class Survey(
-    var id: String,
-    val user: User,
+    var id: String = "",
+    val user: User = User(),
     var questions: List<Question>? = null,
     var url: String? = null,
     var result: Double? = null
@@ -13,7 +13,7 @@ data class Survey(
 data class Question(
     val id: String? = null,
     var option: Option? = null,
-    var size: Int,
+    var size: Int = 0,
     val weight: Int? = null,
     var score: Double? = null
 ) : Serializable
@@ -25,10 +25,11 @@ data class Option(
 ) : Serializable
 
 data class User(
-    val name: String,
+    val name: String = "",
     val email: String? = null,
-    val company: String,
-    val role: String,
+    val company: String = "",
+    val role: String = "",
     val phone: String? = null,
     val area: String? = null
 ) : Serializable
+
