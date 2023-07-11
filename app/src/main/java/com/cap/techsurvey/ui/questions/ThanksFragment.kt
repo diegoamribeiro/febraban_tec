@@ -81,9 +81,11 @@ class ThanksFragment : Fragment() {
             csvWriter().writeAll(csvRows, outputFile)
 
             // Assuming you want to send the email to the same address every time
-            lifecycleScope.launch(Dispatchers.IO) {
-                configureEmail("ronaldo.cardoso@capgemini.com", "Survey Leads", outputFile)
-            }
+//            lifecycleScope.launch(Dispatchers.IO) {
+//                configureEmail(
+//                    "ronaldo.cardoso@capgemini.com",
+//                    "Survey Leads", outputFile)
+//            }
 
 
         }.addOnFailureListener { exception ->

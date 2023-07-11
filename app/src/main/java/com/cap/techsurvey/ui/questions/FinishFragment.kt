@@ -222,7 +222,7 @@ class FinishFragment : Fragment() {
                     mimeMessage.setFrom(InternetAddress("capgemini-febraban-survey@outlook.com"))
                     val emailAddresses = arrayOf(
                         survey.user.email,
-                        "eduardo.baltazar@capgemini.com",
+                        "jamile.leao@capgemini.com",
                     )
                     val recipients = emailAddresses.map { InternetAddress(it) }.toTypedArray()
                     mimeMessage.addRecipients(

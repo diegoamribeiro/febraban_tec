@@ -7,15 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?attr/actionBarSize"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:background="@color/transparent"/>-->
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container_home"
         android:name="androidx.navigation.fragment.NavHostFragment"

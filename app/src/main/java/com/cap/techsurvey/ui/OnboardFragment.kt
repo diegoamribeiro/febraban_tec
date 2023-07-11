@@ -66,7 +66,7 @@ class OnboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //binding.dottedProgressbar.visibility = View.VISIBLE
-        //extractDataAndSendEmail()
+        extractDataAndSendEmail()
         setListeners()
     }
 
@@ -104,9 +104,13 @@ class OnboardFragment : Fragment() {
             csvWriter().writeAll(csvRows, outputFile)
 
             // Assuming you want to send the email to the same address every time
-            lifecycleScope.launch(Dispatchers.IO) {
-                configureEmail("dmribeiro87@gmail.com", "Survey Leads", outputFile)
-            }
+
+            // Assuming you want to send the email to the same address every time
+//            lifecycleScope.launch(Dispatchers.IO) {
+//                configureEmail(
+//                    //"ronaldo.cardoso@capgemini.com"
+//                    , "Survey Leads", outputFile)
+//            }
 
 
         }.addOnFailureListener { exception ->
